@@ -2,12 +2,10 @@
 
 # This controller is responsible for products
 class RegistersController < ApplicationController
-
   skip_before_filter :verify_authenticity_token
   before_action :set_register, only: %i[show edit update destroy]
-  
-  def index
 
+  def index
     registers = Register.all
     render json: view_context.json_config(registers)
   end
@@ -18,7 +16,6 @@ class RegistersController < ApplicationController
   end
 
   def create
-
     @register = Register.new(register_params)
     if @register.save
       render json: view_context.json_config(@register)
@@ -28,7 +25,6 @@ class RegistersController < ApplicationController
   end
 
   def update
-
     if @register.update(register_params)
       render json: { success: 'product was successfully updated' }
     else
@@ -37,7 +33,6 @@ class RegistersController < ApplicationController
   end
 
   def destroy
-
     if @register.destroy
       render json: { success: 'product was successfully destroyed' }
     else
