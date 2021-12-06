@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sku: 
+  name: MyText
+  qtd: 1.5
+  description: MyText
+  price: 1.5
+
+two:
+  sku: 
+  name: MyText
+  qtd: 1.5
+  description: MyText
+  price: 1.5
