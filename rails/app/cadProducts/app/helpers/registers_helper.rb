@@ -3,20 +3,24 @@
 # This helper is responsible for controller registers
 module RegistersHelper
   def json_config(registers)
-    registers.map do |register|
-      { sku: register.sku,
-        name: register.name,
-        description: register.description,
-        price: register.price,
-        qtd: register.qtd }
+
+    if registers.respond_to?(:map)
+      registers.map do |register|
+        to_json(register)
+      end
+    else
+      to_json(registers)
     end
   end
 
-  def json_config_create(register)
-    { sku: register.sku,
+  def to_json(register)
+    {
+      sku: register.sku,
       name: register.name,
       description: register.description,
       price: register.price,
-      qtd: register.qtd }
+      qtd: register.qtd
+    }
   end
+
 end

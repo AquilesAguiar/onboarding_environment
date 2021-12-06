@@ -145,3 +145,4 @@ test:
           mode: :primary
         max_pool_size: 1
         retry_interval: 0
+
