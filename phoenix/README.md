@@ -35,21 +35,21 @@ mix phx.server
 
 `CREATE A PRODUCT POST /registers/`
 ```
-curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X POST http://localhost:3000/api/registers/
+curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X POST http://localhost:3000/registers/
 ```
     	
 ##PUT
 
 `UPDATE A PRODUCT POST /registers/:sku`
 ```
-curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X PUT http://localhost:3000/api/registers/:sku
+curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X PUT http://localhost:3000/registers/:sku
 ```
 	    
 ##DELETE
 
 `DELETE /registers/:sku`
 ```
-curl -X DELETE http://localhost:3000/api/registers/:sku
+curl -X DELETE http://localhost:3000/registers/:sku
 ```
 
 
