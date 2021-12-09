@@ -13,7 +13,7 @@ defmodule CadProductsPhoenix.Management.Register do
     field :name, :string
     field :description, :string
     field :price, :float
-    field :qtd, :float
+    field :qtd, :integer
   end
 
   @doc false

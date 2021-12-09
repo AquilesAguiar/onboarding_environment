@@ -12,20 +12,20 @@ docker-compose run phoenix bash
 ```
 ## Running Aplication
 ```
-rails server
+mix phx.server
 ```
 
 #API ROUTES
 
 ##GET
 
-`INDEX GET register/`
+`INDEX GET registers/`
 
 ###Response
 
 {"data":[{"sku": 0,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}, ...]}
 	
-`PRODUCT GET /register/:sku`
+`PRODUCT GET /registers/:sku`
 
 ###Response
 	
@@ -33,23 +33,23 @@ rails server
 		  
 ##POST  
 
-`CREATE A PRODUCT POST /register/`
+`CREATE A PRODUCT POST /registers/`
 ```
-curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X POST http://localhost:3000/api/register/
+curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X POST http://localhost:3000/api/registers/
 ```
     	
 ##PUT
 
-`UPDATE A PRODUCT POST /register/:sku`
+`UPDATE A PRODUCT POST /registers/:sku`
 ```
-curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X PUT http://localhost:3000/api/register/:sku
+curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X PUT http://localhost:3000/api/registers/:sku
 ```
 	    
 ##DELETE
 
-`DELETE /register/:sku`
+`DELETE /registers/:sku`
 ```
-curl -X DELETE http://localhost:3000/api/register/:sku
+curl -X DELETE http://localhost:3000/api/registers/:sku
 ```
 
 
