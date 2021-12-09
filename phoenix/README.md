@@ -35,14 +35,14 @@ rails server
 
 `CREATE A PRODUCT POST /register/`
 ```
-curl -d '{"data":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X POST http://localhost:3000/api/register/
+curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X POST http://localhost:3000/api/register/
 ```
     	
 ##PUT
 
 `UPDATE A PRODUCT POST /register/:sku`
 ```
-curl -d '{"data":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X PUT http://localhost:3000/api/register/:sku
+curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X PUT http://localhost:3000/api/register/:sku
 ```
 	    
 ##DELETE
