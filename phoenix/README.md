@@ -23,13 +23,13 @@ mix phx.server
 
 ###Response
 
-{"data":[{"sku": 0,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}, ...]}
+{"products":[{"id": "61b2132a6057a7010302be58", "sku": 0,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}, ...]}
 	
-`PRODUCT GET /registers/:sku`
+`PRODUCT GET /registers/:id`
 
 ###Response
 	
-{"data":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}
+{"product":{"id": "61b2132a6057a7010302be58", "sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}
 		  
 ##POST  
 
@@ -40,14 +40,14 @@ curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","pric
     	
 ##PUT
 
-`UPDATE A PRODUCT POST /registers/:sku`
+`UPDATE A PRODUCT POST /registers/:id`
 ```
 curl -d '{"register":{"sku": 5,"name": "test,"description": "product test","price": 8.0,"qtd": 2.0}}' -H "Content-Type: application/json" -X PUT http://localhost:3000/registers/:sku
 ```
 	    
 ##DELETE
 
-`DELETE /registers/:sku`
+`DELETE /registers/:id`
 ```
 curl -X DELETE http://localhost:3000/registers/:sku
 ```

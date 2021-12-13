@@ -6,11 +6,8 @@ use Mix.Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :cad_products_phoenix, CadProductsPhoenix.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "cad_products_phoenix_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "cad_products_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

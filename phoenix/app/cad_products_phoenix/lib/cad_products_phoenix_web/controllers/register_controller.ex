@@ -11,12 +11,10 @@ defmodule CadProductsPhoenixWeb.RegisterController do
     render(conn, "index.json", register: register)
   end
 
-  def create(conn, %{"register" => register_params} ) do
-    with {:ok, %Register{} = register} <- Management.create_register(register_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.register_path(conn, :show, register))
-      |> render("show.json", register: register)
+  def create(conn, %{"product" => register_params} ) do
+    case Management.create_register(register_params) do
+      {:ok, %Register{} = register} -> render(conn, "show.json", register: register)
+      _ -> render(conn, "show.json", %{error: "Failed to create a product"})
     end
   end
 
@@ -25,19 +23,35 @@ defmodule CadProductsPhoenixWeb.RegisterController do
     render(conn, "show.json", register: register)
   end
 
-  def update(conn, %{"id" => id, "register" => register_params}) do
+  def update(conn, %{"id" => id, "product" => register_params}) do
     register = Management.get_register!(id)
 
-    with {:ok, %Register{} = register} <- Management.update_register(register, register_params) do
-      render(conn, "show.json", register: register)
+    if register do
+
+      case Management.update_register(register, register_params) do
+        {:ok, %Register{} = register} -> render(conn, "show.json", register: register)
+        _ -> render(conn, "show.json", %{error: "Failed to update a product #{id}"})
+      end
+
+    else
+
+      json(conn, %{error: "Product with #{id} not found"})
+
     end
+
   end
 
   def delete(conn, %{"id" => id}) do
     register = Management.get_register!(id)
+    if register do
+      case Management.delete_register(register) do
+        {:ok, %Register{}} -> send_resp(conn, :no_content, "")
+        _ -> render(conn, "show.json", %{error: "Failed to delete a product #{id}"})
+         end
+    else
 
-    with {:ok, %Register{}} <- Management.delete_register(register) do
-      send_resp(conn, :no_content, "")
+      json(conn, %{error: "Product with #{id} not found"})
+
     end
   end
 end

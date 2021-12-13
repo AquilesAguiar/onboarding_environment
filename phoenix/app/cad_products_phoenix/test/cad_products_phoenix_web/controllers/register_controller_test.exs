@@ -8,14 +8,14 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     description: "some description",
     name: "some name",
     price: 120.5,
-    qtd: 120.5,
+    qtd: 120,
     sku: "some sku"
   }
   @update_attrs %{
     description: "some updated description",
     name: "some updated name",
     price: 456.7,
-    qtd: 456.7,
+    qtd: 456,
     sku: "some updated sku"
   }
   @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil}

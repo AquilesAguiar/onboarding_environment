@@ -35,7 +35,9 @@ defmodule CadProductsPhoenix.Management do
       ** (Ecto.NoResultsError)
 
   """
-  def get_register!(sku), do: Repo.get_by!(Register, sku: sku)
+  def get_register!(id) do
+    Repo.get(Register, id)
+  end
 
   @doc """
   Creates a register.

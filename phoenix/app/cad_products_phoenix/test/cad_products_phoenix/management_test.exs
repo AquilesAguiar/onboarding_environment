@@ -34,7 +34,7 @@ defmodule CadProductsPhoenix.ManagementTest do
       assert register.description == "some description"
       assert register.name == "some name"
       assert register.price == 120.5
-      assert register.qtd == 120.5
+      assert register.qtd == 120
       assert register.sku == "some sku"
     end
 
@@ -48,7 +48,7 @@ defmodule CadProductsPhoenix.ManagementTest do
       assert register.description == "some updated description"
       assert register.name == "some updated name"
       assert register.price == 456.7
-      assert register.qtd == 456.7
+      assert register.qtd == 456
       assert register.sku == "some updated sku"
     end
 
