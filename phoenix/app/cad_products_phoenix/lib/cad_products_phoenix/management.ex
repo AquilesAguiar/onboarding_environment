@@ -4,9 +4,9 @@ defmodule CadProductsPhoenix.Management do
   """
 
   import Ecto.Query, warn: false
-  alias CadProductsPhoenix.Repo
 
   alias CadProductsPhoenix.Management.Register
+  alias CadProductsPhoenix.Repo
 
   @doc """
   Returns the list of register.
@@ -35,7 +35,7 @@ defmodule CadProductsPhoenix.Management do
       ** (Ecto.NoResultsError)
 
   """
-  def get_register!(id) do
+  def get_register(id) do
     Repo.get(Register, id)
   end
 
