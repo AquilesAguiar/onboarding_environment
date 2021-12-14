@@ -12,7 +12,7 @@ config :cad_products_phoenix, CadProductsPhoenix.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :cad_products_phoenix, CadProductsPhoenixWeb.Endpoint,
-  http: [port: 3000],
+  http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
