@@ -1,5 +1,7 @@
 defmodule CadProductsPhoenixWeb.RegisterView do
   use CadProductsPhoenixWeb, :view
+
+  alias CadProductsPhoenixWeb.ChangesetView
   alias CadProductsPhoenixWeb.RegisterView
 
   def render("index.json", %{register: register}) do
@@ -19,5 +21,9 @@ defmodule CadProductsPhoenixWeb.RegisterView do
       qtd: register.qtd,
       description: register.description
     }
+  end
+
+  def render("error.json", %{changeset: changeset}) do
+    render_one(changeset, ChangesetView, "error.json")
   end
 end

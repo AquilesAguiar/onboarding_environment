@@ -16,7 +16,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   def create(conn, %{"product" => register_params} ) do
     case Management.create_register(register_params) do
       {:ok, %Register{} = register} -> render(conn, "show.json", register: register)
-      {:error, changeset} -> render(conn, "error.json", changeset: changeset)
+      {:error, %Ecto.Changeset{} = changeset} -> render(conn, "error.json", changeset: changeset)
     end
   end
 
@@ -29,9 +29,8 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
     case Management.update_register(register, register_params) do
       {:ok, %Register{} = register} -> render(conn, "show.json", register: register)
-      {:error, changeset} -> render(conn, "error.json", changeset: changeset)
+      {:error, %Ecto.Changeset{} = changeset} -> render(conn, "error.json", changeset: changeset)
     end
-
   end
 
   def delete(conn, _) do
@@ -40,7 +39,6 @@ defmodule CadProductsPhoenixWeb.RegisterController do
     with {:ok, %Register{} = register} <- Management.delete_register(register) do
       send_resp(conn, :no_content, "")
     end
-
   end
 
   # Plug for get products
