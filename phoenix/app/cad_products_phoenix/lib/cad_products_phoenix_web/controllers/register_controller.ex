@@ -38,8 +38,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
     id = conn.params["id"]
     register = Management.get_register(id)
     if register do
-      conn
-      |> assign(:register, register)
+      assign(conn, :register, register)
     else
       conn
       |> put_status(:not_found)
