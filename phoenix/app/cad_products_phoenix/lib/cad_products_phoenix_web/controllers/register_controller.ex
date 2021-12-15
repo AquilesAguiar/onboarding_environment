@@ -13,7 +13,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
     render(conn, "index.json", register: register)
   end
 
-  def create(conn, %{"product" => register_params} ) do
+  def create(_conn, %{"product" => register_params} ) do
     Management.create_register(register_params)
   end
 
@@ -28,7 +28,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   def delete(conn, _) do
     register = conn.assigns[:register]
 
-    with {:ok, %Register{} = register} <- Management.delete_register(register) do
+    with {:ok, %Register{}} <- Management.delete_register(register) do
       send_resp(conn, :no_content, "")
     end
   end
@@ -38,9 +38,13 @@ defmodule CadProductsPhoenixWeb.RegisterController do
     id = conn.params["id"]
     register = Management.get_register(id)
     if register do
-      assign(conn, :register, register)
+      conn
+      |> assign(:register, register)
     else
-      send_resp(conn, :not_found, "Product with #{id} not found")
+      conn
+      |> put_status(:not_found)
+      |> json(%{error: "Product with #{id} not found"})
+      |> halt()
     end
   end
 end
