@@ -9,5 +9,4 @@ defmodule CadProductsPhoenixWeb.Router do
     pipe_through :api
     resources "/registers", RegisterController, only: [:index, :show, :create, :update, :delete]
   end
-
 end
