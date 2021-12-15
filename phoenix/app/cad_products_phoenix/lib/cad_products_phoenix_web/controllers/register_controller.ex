@@ -14,23 +14,15 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   end
 
   def create(conn, %{"product" => register_params} ) do
-    case Management.create_register(register_params) do
-      {:ok, %Register{} = register} -> render(conn, "show.json", register: register)
-      {:error, %Ecto.Changeset{} = changeset} -> render(conn, "error.json", changeset: changeset)
-    end
+    Management.create_register(register_params)
   end
 
   def show(conn, _) do
     render(conn, "show.json", register: conn.assigns[:register])
   end
 
-  def update(conn, %{"product" => register_params}) do
-    register = conn.assigns[:register]
-
-    case Management.update_register(register, register_params) do
-      {:ok, %Register{} = register} -> render(conn, "show.json", register: register)
-      {:error, %Ecto.Changeset{} = changeset} -> render(conn, "error.json", changeset: changeset)
-    end
+  def update(conn, %{"product" => register_params} ) do
+    Management.update_register(conn.assigns[:register], register_params)
   end
 
   def delete(conn, _) do
@@ -42,7 +34,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   end
 
   # Plug for get products
-  defp search_product(conn, __s) do
+  defp search_product(conn, _) do
     id = conn.params["id"]
     register = Management.get_register(id)
     if register do
