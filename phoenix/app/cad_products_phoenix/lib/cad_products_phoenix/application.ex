@@ -6,6 +6,7 @@ defmodule CadProductsPhoenix.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
     children = [
       # Start the Ecto repository
       CadProductsPhoenix.Repo,
@@ -14,7 +15,9 @@ defmodule CadProductsPhoenix.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: CadProductsPhoenix.PubSub},
       # Start the Endpoint (http/https)
-      CadProductsPhoenixWeb.Endpoint
+      CadProductsPhoenixWeb.Endpoint,
+
+      {Redix, {"redis://localhost:6379", [name: :redis_server]}}
       # Start a worker by calling: CadProductsPhoenix.Worker.start_link(arg)
       # {CadProductsPhoenix.Worker, arg}
     ]
