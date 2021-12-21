@@ -1,9 +1,12 @@
 use Mix.Config
 
+# Initialize Logstash
+config :tirexs, :uri, "http://127.0.0.1:9200"
+
 # Configure your database
 config :cad_products_phoenix, CadProductsPhoenix.Repo,
-  database: "cad_products_development",
-  hostname: "localhost"
+database: "cad_products_development",
+hostname: "localhost"
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

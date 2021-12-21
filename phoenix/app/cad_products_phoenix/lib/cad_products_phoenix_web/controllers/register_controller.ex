@@ -1,9 +1,11 @@
 defmodule CadProductsPhoenixWeb.RegisterController do
   use CadProductsPhoenixWeb, :controller
 
+  import Tirexs.HTTP
+
+  alias CadProductsPhoenix.Cache
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register
-  alias CadProductsPhoenix.Cache
 
   action_fallback CadProductsPhoenixWeb.FallbackController
 
@@ -11,7 +13,9 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   def index(conn, _params) do
     case Cache.get_product("products") do
-      {:ok, products} -> render(conn, "index.json", register: products)
+      {:ok, products} ->
+        format_json(products)
+        render(conn, "index.json", register: products)
       {:not_found, "key not found"} ->
         register = Management.list_register()
         Cache.set_product("products", register)
@@ -20,6 +24,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   end
 
   def create(_conn, %{"product" => register_params} ) do
+    Cache.delete_product("products")
     Management.create_register(register_params)
   end
 
@@ -53,4 +58,20 @@ defmodule CadProductsPhoenixWeb.RegisterController do
       |> halt()
     end
   end
+
+  defp format_json(products) do
+    products_json = Enum.map(products, fn(product) ->
+       %{
+        id: product.id,
+        sku: product.sku,
+        name: product.name,
+        price: product.price,
+        qtd: product.qtd,
+        description: product.description
+      }
+    end)
+
+    Enum.each(products_json, fn(product) -> put("/cad_products/products/#{product.id}", product) end)
+  end
+
 end

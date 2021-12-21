@@ -20,7 +20,7 @@ defmodule CadProductsPhoenix.MixProject do
   def application do
     [
       mod: {CadProductsPhoenix.Application, []},
-      extra_applications: [:logger, :runtime_tools, :mongodb_ecto, :ecto]
+      extra_applications: [:tirexs, :logger, :runtime_tools, :mongodb_ecto, :ecto]
     ]
   end
 
@@ -44,7 +44,8 @@ defmodule CadProductsPhoenix.MixProject do
       {:mongodb_ecto, github: "michalmuskala/mongodb_ecto"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:redix, "~> 1.1"},
-      {:castore, ">= 0.0.0"}
+      {:castore, ">= 0.0.0"},
+      {:tirexs, "~> 0.8"}
     ]
   end
 
