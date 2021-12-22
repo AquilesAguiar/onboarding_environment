@@ -1,31 +1,36 @@
 defmodule CadProductsPhoenixWeb.RegisterController do
   use CadProductsPhoenixWeb, :controller
 
-  import Tirexs.HTTP
-
   alias CadProductsPhoenix.Cache
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register
+  alias CadProductsPhoenix.ProductIndex
 
   action_fallback CadProductsPhoenixWeb.FallbackController
 
   plug :search_product when action in [:show, :update, :delete]
 
   def index(conn, _params) do
-    case Cache.get_product("products") do
+    IO.inspect(Cache.get("products"))
+    case Cache.get("products") do
       {:ok, products} ->
-        format_json(products)
+        ProductIndex.index_products()
         render(conn, "index.json", register: products)
-      {:not_found, "key not found"} ->
+      {:error, "key not found"} ->
         register = Management.list_register()
-        Cache.set_product("products", register)
+        Cache.set("products", register)
         render(conn, "index.json", register: register)
       end
   end
 
-  def create(_conn, %{"product" => register_params} ) do
-    Cache.delete_product("products")
-    Management.create_register(register_params)
+  def create(conn, %{"product" => register_params} ) do
+    case Management.create_register(register_params) do
+      {:ok, product} ->
+        Cache.delete("products")
+        ProductIndex.index_products()
+        render(conn, "show.json", register: product)
+      error -> error
+    end
   end
 
   def show(conn, _) do
@@ -33,14 +38,20 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   end
 
   def update(conn, %{"product" => register_params} ) do
-    Cache.delete_product("products")
-    Management.update_register(conn.assigns[:register], register_params)
+    case Management.update_register(conn.assigns[:register], register_params) do
+      {:ok, product} ->
+        Cache.delete("products")
+        ProductIndex.index_products()
+        render(conn, "show.json", register: product)
+      error -> error
+    end
   end
 
   def delete(conn, _) do
     register = conn.assigns[:register]
     with {:ok, %Register{}} <- Management.delete_register(register) do
-      Cache.delete_product("products")
+      Cache.delete("products")
+      ProductIndex.index_products()
       send_resp(conn, :no_content, "")
     end
   end
@@ -57,21 +68,6 @@ defmodule CadProductsPhoenixWeb.RegisterController do
       |> json(%{error: "Product with #{id} not found"})
       |> halt()
     end
-  end
-
-  defp format_json(products) do
-    products_json = Enum.map(products, fn(product) ->
-       %{
-        id: product.id,
-        sku: product.sku,
-        name: product.name,
-        price: product.price,
-        qtd: product.qtd,
-        description: product.description
-      }
-    end)
-
-    Enum.each(products_json, fn(product) -> put("/cad_products/products/#{product.id}", product) end)
   end
 
 end

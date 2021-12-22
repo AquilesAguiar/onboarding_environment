@@ -1,20 +1,29 @@
 defmodule CadProductsPhoenix.Cache do
   @conn :redis_server
 
-  # Set products
-  def set_product(key, value), do: Redix.command(@conn, ["SET", key, value |> :erlang.term_to_binary |> Base.encode16()])
-
-  # Get products
-  def get_product(key), do: Redix.command(@conn, ["GET", key]) |> decode
-
-  defp decode({:ok, nil}), do: {:not_found, "key not found"}
-
-  defp decode({:ok, val}) do
-    {:ok, bin} = val |> Base.decode16()
-    {:ok, bin |> :erlang.binary_to_term()}
+  # Set a binary hash
+  def set(key, value) do
+    bin = encode(value)
+    Redix.command(@conn, ["SET", key, bin])
   end
 
+  # Get a get a binary and decode
+  def get(key), do: decode(Redix.command(@conn, ["GET", key]))
+
   # Delete products
-  def delete_product(key), do: Redix.command(@conn, ["DEL", key])
+  def delete(key), do: Redix.command(@conn, ["DEL", key])
+
+  defp encode(value) do
+    value
+    |> :erlang.term_to_binary()
+    |> Base.encode16()
+  end
+
+  defp decode({:ok, nil}), do: {:error, "key not found"}
+
+  defp decode({:ok, val}) do
+    {:ok, bin} = Base.decode16(val)
+    {:ok, :erlang.binary_to_term(bin)}
+  end
 
 end
