@@ -29,13 +29,20 @@ defmodule CadProductsPhoenixWeb.FallbackController do
     conn
     |> put_status(:not_found)
     |> put_view(CadProductsPhoenixWeb.ErrorView)
-    |> render(:"404")
+    |> render(404)
   end
 
-  def call(conn, {:error, 422}) do
+  # def call(conn, {:error, 422}) do
+  #   conn
+  #   |> put_status(:unprocessable_entity)
+  #   |> put_view(CadProductsPhoenixWeb.ErrorView)
+  #   |> render(422)
+  # end
+  def call(conn, {:error, %{code: error_code, message: message}}) when is_number(error_code) do
     conn
-    |> put_status(:unprocessable_entity)
+    |> put_status(error_code)
     |> put_view(CadProductsPhoenixWeb.ErrorView)
-    |> render(:"422")
+    |>  send_resp(error_code, message)
   end
+
 end

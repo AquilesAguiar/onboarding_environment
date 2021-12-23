@@ -22,27 +22,30 @@ defmodule CadProductsPhoenixWeb.Services.Product do
         Cache.delete("products")
         ProductIndex.index_products()
         result
+      error -> error
     end
   end
 
-  def create(_params), do: {:error, 422}
+  def create(_params), do: {:error, %{code: 422, message: "Unable to create the product, check if you are passing the json correctly"}}
 
-  def update(products, %{"product" => register_params} ) do
-    case Management.update_register(products, register_params) do
-      {:ok, product} ->
+  def update(product, %{"product" => register_params} ) do
+    case Management.update_register(product, register_params) do
+      {:ok, _} ->
         Cache.delete("products")
         ProductIndex.index_products()
         {:ok, product}
+      error -> error
     end
   end
 
-  def update(_products, _params), do: {:error, 422}
+  def update(_product, _params), do: {:error, %{code: 422, message: "Unable to update the product, check if it exists or if you are passing the json correctly"}}
 
-  def delete(products) do
-    Management.delete_register(products)
+  def delete(product) do
+    Management.delete_register(product)
     Cache.delete("products")
     ProductIndex.index_products()
   end
 
-  def delete(_products), do: {:error, 422}
+  def delete(_product), do: {:error, %{code: 422, message: "Unable to delete the product, check if it exists"}}
+
 end
