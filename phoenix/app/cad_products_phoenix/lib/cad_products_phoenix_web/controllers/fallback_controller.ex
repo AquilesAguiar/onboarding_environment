@@ -8,9 +8,13 @@ defmodule CadProductsPhoenixWeb.FallbackController do
 
   alias CadProductsPhoenix.Management.Register
 
-  # def call(conn, {:ok, %Register{} = register}) do
-  #   render(conn, "show.json", register: register)
-  # end
+  def call(conn, {:ok, %Register{} = register}) do
+    render(conn, "show.json", register: register)
+  end
+
+  def call(conn, {:ok, :no_content}) do
+    send_resp(conn, :no_content, "")
+  end
 
   # This clause handles errors returned by Ecto's insert/update/delete.
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
@@ -26,5 +30,12 @@ defmodule CadProductsPhoenixWeb.FallbackController do
     |> put_status(:not_found)
     |> put_view(CadProductsPhoenixWeb.ErrorView)
     |> render(:"404")
+  end
+
+  def call(conn, {:error, 422}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(CadProductsPhoenixWeb.ErrorView)
+    |> render(:"422")
   end
 end

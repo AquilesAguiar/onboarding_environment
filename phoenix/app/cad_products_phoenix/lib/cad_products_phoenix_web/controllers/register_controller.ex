@@ -5,55 +5,34 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register
   alias CadProductsPhoenix.ProductIndex
+  alias CadProductsPhoenixWeb.Services.Product
 
   action_fallback CadProductsPhoenixWeb.FallbackController
 
   plug :search_product when action in [:show, :update, :delete]
 
   def index(conn, _params) do
-    IO.inspect(Cache.get("products"))
-    case Cache.get("products") do
-      {:ok, products} ->
-        ProductIndex.index_products()
-        render(conn, "index.json", register: products)
-      {:error, "key not found"} ->
-        register = Management.list_register()
-        Cache.set("products", register)
-        render(conn, "index.json", register: register)
-      end
-  end
-
-  def create(conn, %{"product" => register_params} ) do
-    case Management.create_register(register_params) do
-      {:ok, product} ->
-        Cache.delete("products")
-        ProductIndex.index_products()
-        render(conn, "show.json", register: product)
+    case Product.fetch_all() do
+      {:ok, products} -> render(conn, "index.json", register: products)
       error -> error
     end
+  end
+
+  def create(_conn, params) do
+    Product.create(params)
   end
 
   def show(conn, _) do
     render(conn, "show.json", register: conn.assigns[:register])
   end
 
-  def update(conn, %{"product" => register_params} ) do
-    case Management.update_register(conn.assigns[:register], register_params) do
-      {:ok, product} ->
-        Cache.delete("products")
-        ProductIndex.index_products()
-        render(conn, "show.json", register: product)
-      error -> error
-    end
+  def update(conn, params) do
+    Product.update(conn.assigns[:register], params)
   end
 
   def delete(conn, _) do
-    register = conn.assigns[:register]
-    with {:ok, %Register{}} <- Management.delete_register(register) do
-      Cache.delete("products")
-      ProductIndex.index_products()
-      send_resp(conn, :no_content, "")
-    end
+    Product.delete(conn.assigns[:register])
+    {:ok, :no_content}
   end
 
   # Plug for get products
