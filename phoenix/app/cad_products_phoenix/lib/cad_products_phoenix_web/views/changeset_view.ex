@@ -1,6 +1,5 @@
 defmodule CadProductsPhoenixWeb.ChangesetView do
   use CadProductsPhoenixWeb, :view
-  alias CadProductsPhoenixWeb.ChangesetView
   @doc """
   Traverses and translates changeset errors.
 

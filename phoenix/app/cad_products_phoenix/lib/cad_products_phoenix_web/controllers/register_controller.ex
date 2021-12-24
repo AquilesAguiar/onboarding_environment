@@ -3,34 +3,34 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register
+  alias CadProductsPhoenixWeb.Services.Product
 
   action_fallback CadProductsPhoenixWeb.FallbackController
 
   plug :search_product when action in [:show, :update, :delete]
 
   def index(conn, _params) do
-    register = Management.list_register()
-    render(conn, "index.json", register: register)
+    case Product.fetch_all() do
+      {:ok, products} -> render(conn, "index.json", register: products)
+      error -> error
+    end
   end
 
-  def create(_conn, %{"product" => register_params} ) do
-    Management.create_register(register_params)
+  def create(_conn, params) do
+    Product.create(params)
   end
 
   def show(conn, _) do
     render(conn, "show.json", register: conn.assigns[:register])
   end
 
-  def update(conn, %{"product" => register_params} ) do
-    Management.update_register(conn.assigns[:register], register_params)
+  def update(conn, params) do
+    Product.update(conn.assigns[:register], params)
   end
 
   def delete(conn, _) do
-    register = conn.assigns[:register]
-
-    with {:ok, %Register{}} <- Management.delete_register(register) do
-      send_resp(conn, :no_content, "")
-    end
+    Product.delete(conn.assigns[:register])
+    {:ok, :no_content}
   end
 
   # Plug for get products
@@ -46,4 +46,5 @@ defmodule CadProductsPhoenixWeb.RegisterController do
       |> halt()
     end
   end
+
 end
