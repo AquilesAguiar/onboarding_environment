@@ -12,6 +12,7 @@ defmodule CadProductsPhoenix.ProductIndex do
         price: prod.price,
         qtd: prod.qtd,
         description: prod.description
+        last_update_at: DateTime.to_iso8601(DateTime.utc_now())
       }
 
     put("/cad_products/products/#{product_json.id}", product_json)
