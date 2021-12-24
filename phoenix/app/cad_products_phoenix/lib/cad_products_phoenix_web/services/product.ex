@@ -5,14 +5,14 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.ProductIndex
 
   def fetch_all() do
+   Cache.get("products")
     case Cache.get("products") do
       {:ok, _} = result ->
-        ProductIndex.index_products()
         result
       _ ->
         register = Management.list_register()
         Cache.set("products", register)
-        register
+        {:ok, register}
       end
   end
 
@@ -20,7 +20,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     case Management.create_register(product) do
       {:ok, _} = result ->
         Cache.delete("products")
-        ProductIndex.index_products()
+        ProductIndex.index_product(result)
         result
       error -> error
     end
@@ -32,7 +32,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     case Management.update_register(product, register_params) do
       {:ok, _} ->
         Cache.delete("products")
-        ProductIndex.index_products()
+        ProductIndex.index_product({:ok, product})
         {:ok, product}
       error -> error
     end
@@ -43,7 +43,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   def delete(product) do
     Management.delete_register(product)
     Cache.delete("products")
-    ProductIndex.index_products()
+    ProductIndex.delete_index_product(product)
   end
 
   def delete(_product), do: {:error, %{code: 422, message: "Unable to delete the product, check if it exists"}}

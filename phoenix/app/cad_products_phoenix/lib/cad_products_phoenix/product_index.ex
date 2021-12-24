@@ -3,21 +3,23 @@ defmodule CadProductsPhoenix.ProductIndex do
   import Tirexs.HTTP
   alias CadProductsPhoenix.Management
 
-  def index_products() do
-    products = Management.list_register()
-
-    products_json = Enum.map(products, fn(product) ->
+  def index_product(product) do
+    {:ok, prod} = product
+    IO.inspect(prod)
+    product_json =
        %{
-        id: product.id,
-        sku: product.sku,
-        name: product.name,
-        price: product.price,
-        qtd: product.qtd,
-        description: product.description
+        id: prod.id,
+        sku: prod.sku,
+        name: prod.name,
+        price: prod.price,
+        qtd: prod.qtd,
+        description: prod.description
       }
-    end)
 
-    Enum.each(products_json, fn(product) -> put("/cad_products/products/#{product.id}", product) end)
+    put("/cad_products/products/#{product_json.id}", product_json)
   end
 
+  def delete_index_product(product) do
+    delete("/cad_products/products/#{product.id}")
+  end
 end
