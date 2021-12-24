@@ -3,9 +3,7 @@ defmodule CadProductsPhoenix.ProductIndex do
   import Tirexs.HTTP
   alias CadProductsPhoenix.Management
 
-  def index_product(product) do
-    {:ok, prod} = product
-    IO.inspect(prod)
+  def index_product({:ok, prod}) do
     product_json =
        %{
         id: prod.id,

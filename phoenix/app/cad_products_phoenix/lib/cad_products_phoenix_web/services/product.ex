@@ -30,10 +30,10 @@ defmodule CadProductsPhoenixWeb.Services.Product do
 
   def update(product, %{"product" => register_params} ) do
     case Management.update_register(product, register_params) do
-      {:ok, _} ->
+      {:ok, _} = update_product ->
         Cache.delete("products")
-        ProductIndex.index_product({:ok, product})
-        {:ok, product}
+        ProductIndex.index_product({:ok, update_product})
+        {:ok, update_product}
       error -> error
     end
   end
