@@ -1,7 +1,6 @@
 defmodule CadProductsPhoenix.ProductIndex do
 
   import Tirexs.HTTP
-  alias CadProductsPhoenix.Management
 
   def index_product({:ok, prod}) do
     product_json =
@@ -11,7 +10,7 @@ defmodule CadProductsPhoenix.ProductIndex do
         name: prod.name,
         price: prod.price,
         qtd: prod.qtd,
-        description: prod.description
+        description: prod.description,
         last_update_at: DateTime.to_iso8601(DateTime.utc_now())
       }
 

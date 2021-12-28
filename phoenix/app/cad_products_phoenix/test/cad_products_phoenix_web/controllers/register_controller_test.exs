@@ -1,5 +1,5 @@
 defmodule CadProductsPhoenixWeb.RegisterControllerTest do
-  use CadProductsPhoenixWeb.ConnCase
+  use CadProductsPhoenixWeb.ConnCase, async: false
 
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register

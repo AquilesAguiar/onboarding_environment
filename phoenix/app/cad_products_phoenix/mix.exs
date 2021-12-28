@@ -44,7 +44,8 @@ defmodule CadProductsPhoenix.MixProject do
       {:mongodb_ecto, github: "michalmuskala/mongodb_ecto"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:redix, "~> 1.1"},
-      {:tirexs, "~> 0.8"}
+      {:tirexs, "~> 0.8"},
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 
@@ -59,7 +60,7 @@ defmodule CadProductsPhoenix.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "test"]
     ]
   end
 end

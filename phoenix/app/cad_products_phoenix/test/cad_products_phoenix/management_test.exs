@@ -1,5 +1,6 @@
 defmodule CadProductsPhoenix.ManagementTest do
-  use CadProductsPhoenix.DataCase
+  use CadProductsPhoenix.DataCase, async: false
+  import Mock
 
   alias CadProductsPhoenix.Management
 
