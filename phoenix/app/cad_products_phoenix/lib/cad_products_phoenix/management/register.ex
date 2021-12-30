@@ -14,14 +14,12 @@ defmodule CadProductsPhoenix.Management.Register do
     field :description, :string
     field :price, :float
     field :qtd, :integer
-    field :last_update_at, :date
-
   end
 
   @doc false
   def changeset(register, attrs) do
     register
-    |> cast(attrs, [:sku, :name, :price, :qtd, :description, :last_update_at])
-    |> validate_required([:sku, :name, :price, :qtd, :description, :last_update_at])
+    |> cast(attrs, [:sku, :name, :price, :qtd, :description])
+    |> validate_required([:sku, :name, :price, :qtd, :description])
   end
 end

@@ -1,6 +1,5 @@
 defmodule CadProductsPhoenix.ManagementTest do
   use CadProductsPhoenix.DataCase, async: false
-  import Mock
 
   alias CadProductsPhoenix.Management
 
@@ -27,7 +26,7 @@ defmodule CadProductsPhoenix.ManagementTest do
 
     test "get_register!/1 returns the register with given id" do
       register = register_fixture()
-      assert Management.get_register!(register.id) == register
+      assert Management.get_register(register.id) == register
     end
 
     test "create_register/1 with valid data creates a register" do
@@ -56,13 +55,13 @@ defmodule CadProductsPhoenix.ManagementTest do
     test "update_register/2 with invalid data returns error changeset" do
       register = register_fixture()
       assert {:error, %Ecto.Changeset{}} = Management.update_register(register, @invalid_attrs)
-      assert register == Management.get_register!(register.id)
+      assert register == Management.get_register(register.id)
     end
 
     test "delete_register/1 deletes the register" do
       register = register_fixture()
       assert {:ok, %Register{}} = Management.delete_register(register)
-      assert_raise Ecto.NoResultsError, fn -> Management.get_register!(register.id) end
+      assert_raise Ecto.NoResultsError, fn -> Management.get_register(register.id) end
     end
 
     test "change_register/1 returns a register changeset" do

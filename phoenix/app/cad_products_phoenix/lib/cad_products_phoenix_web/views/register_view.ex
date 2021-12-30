@@ -18,7 +18,7 @@ defmodule CadProductsPhoenixWeb.RegisterView do
       name: register.name,
       price: register.price,
       qtd: register.qtd,
-      description: register.description
+      description: register.description,
     }
   end
 end
