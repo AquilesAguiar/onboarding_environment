@@ -20,4 +20,9 @@ defmodule CadProductsPhoenix.ProductIndex do
   def delete_index_product(product) do
     delete("/cad_products/products/#{product.id}")
   end
+
+  def search_index_product(_params) do
+    get("/my_index/users/1")
+  end
+
 end
