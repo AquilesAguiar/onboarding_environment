@@ -22,19 +22,23 @@ defmodule CadProductsPhoenix.ProductIndex do
   end
 
   def get_all_product() do
-    {:ok, 200, all_products} = get("/cad_products/products/_search")
-    products = all_products.hits.hits
-
-    products = Enum.map(products, fn(product) -> product._source end)
-
-    products
+    format_json_products(get("/cad_products/products/_search"))
   end
 
   def search_products(params) do
     keys_params = Map.keys(params)
     Enum.each(keys_params, fn(key) ->
-      get("cad_products/products/_search?q=#{key}:#{Map.get(params, key)}*")
+      format_json_products(get("cad_products/products/_search?q=#{key}:#{Map.get(params, key)}*"))
     end)
+  end
+
+  def format_json_products(products) do
+    {:ok, 200, all_products} = products
+    products = all_products.hits.hits
+
+    products = Enum.map(products, fn(product) -> product._source end)
+
+    products
   end
 
 end

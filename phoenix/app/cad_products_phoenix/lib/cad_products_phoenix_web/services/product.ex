@@ -5,7 +5,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.ProductIndex
 
   def fetch_all(conn) do
-    ProductIndex.search_products(conn.params)
+    IO.inspect(ProductIndex.search_products(conn.params))
     register = ProductIndex.get_all_product()
     {:ok, register}
   end
