@@ -33,7 +33,7 @@ defmodule CadProductsPhoenix.ProductIndex do
   def search_products(params) do
     keys_params = Map.keys(params)
     Enum.each(keys_params, fn(key) ->
-      IO.inspect(get("cad_products/products/_search?q=#{key}:#{Map.get(params, key)}*"))
+      get("cad_products/products/_search?q=#{key}:#{Map.get(params, key)}*")
     end)
   end
 
