@@ -4,16 +4,18 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.ProductIndex
 
-  def fetch_all() do
-    register = Management.list_register()
+  def fetch_all(conn) do
+    ProductIndex.search_products(conn.params)
+    register = ProductIndex.get_all_product()
     {:ok, register}
   end
 
   def create(%{"product" => product}) when is_map(product) do
     case Management.create_register(product) do
       {:ok, _} = result ->
-        Cache.set(result.id, result)
-        ProductIndex.index_product(result)
+        {:ok, product} = result
+        Cache.set(product.id, product)
+        ProductIndex.index_product(product)
         result
       error -> error
     end
@@ -42,7 +44,6 @@ defmodule CadProductsPhoenixWeb.Services.Product do
 
   def delete(cache_product) do
     {:ok, product} = cache_product
-    IO.inspect(product.id)
     Management.delete_register(product)
     Cache.delete(product.id)
     ProductIndex.delete_index_product(product)
