@@ -22,25 +22,25 @@ defmodule CadProductsPhoenix.ProductIndex do
   end
 
   def get_all_product() do
-    format_json_products(get("/cad_products/products/_search"))
+    get("/cad_products/products/_search")
+    |> format_json_products()
   end
 
   def join_string(var, string) do
     var <> string
   end
+
   def search_products(params) do
-    control = ""
-    query = Enum.map(params, fn {k, v} -> join_string(control, "#{k}:#{v}*&") end)
-    format_json_products(get("cad_products/products/_search?q=#{query}"))
+    query = Enum.map(params, fn {k, v} -> "#{k}:#{v}*&" end)
+    query = Enum.join(query)
+    get("cad_products/products/_search?q=#{query}")
+    |> format_json_products()
   end
 
   def format_json_products(products) do
     {:ok, 200, all_products} = products
     products = all_products.hits.hits
-
-    products = Enum.map(products, fn(product) -> product._source end)
-
-    products
+    Enum.map products, &(&1._source)
   end
 
 end

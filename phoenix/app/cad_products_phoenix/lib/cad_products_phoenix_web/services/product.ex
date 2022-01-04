@@ -7,16 +7,21 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   def fetch_all(conn) do
     case search_products(conn) do
       {:ok, products} -> {:ok, products}
-      {:error, _mensage} -> {:ok, ProductIndex.get_all_product()}
+      {:search_all, _param} -> {:ok, ProductIndex.get_all_product()}
+      error -> error
     end
   end
 
   def search_products(conn) do
-    register = ProductIndex.search_products(conn.params)
-    if register == [] do
-      {:error, %{code: 422, message: "Unable to search, missing params"}}
+    if conn.params === %{} do
+      {:search_all, ""}
     else
-      {:ok, register}
+      register = ProductIndex.search_products(conn.params)
+      if register === [] do
+        {:error, %{code: 422, message:  "Products not found"}}
+      else
+        {:ok, register}
+      end
     end
   end
 
