@@ -5,7 +5,6 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenixWeb.Services.Product
 
-
   action_fallback CadProductsPhoenixWeb.FallbackController
 
   plug :get_cache when action in [:show, :update, :delete]

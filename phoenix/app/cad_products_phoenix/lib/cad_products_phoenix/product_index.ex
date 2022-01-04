@@ -25,11 +25,13 @@ defmodule CadProductsPhoenix.ProductIndex do
     format_json_products(get("/cad_products/products/_search"))
   end
 
+  def join_string(var, string) do
+    var <> string
+  end
   def search_products(params) do
-    keys_params = Map.keys(params)
-    Enum.each(keys_params, fn(key) ->
-      format_json_products(get("cad_products/products/_search?q=#{key}:#{Map.get(params, key)}*"))
-    end)
+    control = ""
+    query = Enum.map(params, fn {k, v} -> join_string(control, "#{k}:#{v}*&") end)
+    format_json_products(get("cad_products/products/_search?q=#{query}"))
   end
 
   def format_json_products(products) do

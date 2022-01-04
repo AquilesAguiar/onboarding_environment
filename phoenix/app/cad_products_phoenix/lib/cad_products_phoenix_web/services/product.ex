@@ -5,9 +5,19 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.ProductIndex
 
   def fetch_all(conn) do
-    IO.inspect(ProductIndex.search_products(conn.params))
-    register = ProductIndex.get_all_product()
-    {:ok, register}
+    case search_products(conn) do
+      {:ok, products} -> {:ok, products}
+      {:error, _mensage} -> {:ok, ProductIndex.get_all_product()}
+    end
+  end
+
+  def search_products(conn) do
+    register = ProductIndex.search_products(conn.params)
+    if register == [] do
+      {:error, %{code: 422, message: "Unable to search, missing params"}}
+    else
+      {:ok, register}
+    end
   end
 
   def create(%{"product" => product}) when is_map(product) do
