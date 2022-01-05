@@ -21,7 +21,8 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   end
 
   def show(conn, _) do
-    Product.show(conn.assigns[:register])
+    %{"product" => conn.assigns[:register]}
+    |> Product.show()
   end
 
   def update(conn, params) do
@@ -30,7 +31,6 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   def delete(conn, _) do
     Product.delete(conn.assigns[:register])
-    {:ok, :no_content}
   end
 
   defp get_cache(conn, _) do

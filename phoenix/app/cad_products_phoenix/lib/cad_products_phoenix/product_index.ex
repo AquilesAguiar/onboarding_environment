@@ -28,7 +28,6 @@ defmodule CadProductsPhoenix.ProductIndex do
       |> format_json_products()
     else
       query = Enum.map_join(params, "*&", fn {k, v} -> "#{k}:#{v}" end)
-
       "cad_products/products/_search?q=#{query}"
       |> get()
       |> format_json_products()
@@ -39,9 +38,9 @@ defmodule CadProductsPhoenix.ProductIndex do
     case products do
       {:ok, 200, all_products} ->
         products = all_products.hits.hits
-        Enum.map products, &(&1._source)
-      _ -> {:error, %{code: 422, message:  "Products not found"}}
+        products = Enum.map products, &(&1._source)
+        {:ok, products}
+      _ -> {:error, %{code: 400, message:  "it was not possible to get the products"}}
     end
   end
-
 end

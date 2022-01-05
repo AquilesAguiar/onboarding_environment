@@ -38,5 +38,4 @@ defmodule CadProductsPhoenixWeb.FallbackController do
     |> put_view(CadProductsPhoenixWeb.ErrorView)
     |> send_resp(error_code, message)
   end
-
 end
