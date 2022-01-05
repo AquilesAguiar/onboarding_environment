@@ -10,7 +10,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   plug :get_cache when action in [:show, :update, :delete]
 
   def index(conn, _params) do
-    case Product.fetch_all(conn) do
+    case Product.fetch_products(conn.params) do
       {:ok, products} -> render(conn, "index.json", register: products)
       error -> error
     end
@@ -35,14 +35,15 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   defp get_cache(conn, _) do
     id = conn.params["id"]
+
     case Cache.get(id) do
-      {:ok, _} = result ->
-        assign(conn, :register, result)
+      {:ok, product} = result ->
+        assign(conn, :register, product)
       _ ->
         register = Management.get_register(id)
         if register do
           Cache.set(id, register)
-          assign(conn, :register, {:ok, register})
+          assign(conn, :register, register)
         else
           conn
           |> put_status(:not_found)

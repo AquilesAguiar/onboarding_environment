@@ -2,7 +2,7 @@ defmodule CadProductsPhoenix.ProductIndex do
 
   import Tirexs.HTTP
 
-  def index_product(prod) do
+  def create_product(prod) do
     product_json =
        %{
         id: prod.id,
@@ -17,33 +17,31 @@ defmodule CadProductsPhoenix.ProductIndex do
     put("/cad_products/products/#{product_json.id}", product_json)
   end
 
-  def delete_index_product(product) do
+  def delete_product(product) do
     delete("/cad_products/products/#{product.id}")
   end
 
-  def get_all_product() do
-    "/cad_products/products/_search"
-    |> get()
-    |> format_json_products()
-  end
-
-
   def search_products(params) do
-    query = Enum.map(params, fn {k, v} -> "#{k}:#{v}*&" end)
-    query = Enum.join(query)
+    if params == %{} do
+      "/cad_products/products/_search"
+      |> get()
+      |> format_json_products()
+    else
+      query = Enum.map_join(params, "*&", fn {k, v} -> "#{k}:#{v}" end)
 
-    "cad_products/products/_search?q=#{query}"
-    |> get()
-    |> format_json_products()
+      "cad_products/products/_search?q=#{query}"
+      |> get()
+      |> format_json_products()
+    end
   end
 
-  def format_json_products(products) do
-    {:ok, 200, all_products} = products
-    products = all_products.hits.hits
-    Enum.map products, &(&1._source)
+  defp format_json_products(products) do
+    case products do
+      {:ok, 200, all_products} ->
+        products = all_products.hits.hits
+        Enum.map products, &(&1._source)
+      _ -> {:error, %{code: 422, message:  "Products not found"}}
+    end
   end
 
-  def join_string(var, string) do
-    var <> string
-  end
 end

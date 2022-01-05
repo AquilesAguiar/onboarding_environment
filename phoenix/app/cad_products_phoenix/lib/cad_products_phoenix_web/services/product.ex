@@ -4,34 +4,16 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.ProductIndex
 
-  def fetch_all(conn) do
-    case search_products(conn) do
-      {:ok, products} -> {:ok, products}
-      {:search_all, _param} -> {:ok, ProductIndex.get_all_product()}
-      error -> error
-    end
-  end
-
-  def search_products(conn) do
-    if conn.params === %{} do
-      {:search_all, ""}
-    else
-      register = ProductIndex.search_products(conn.params)
-      if register === [] do
-        {:error, %{code: 422, message:  "Products not found"}}
-      else
-        {:ok, register}
-      end
-    end
+  def fetch_products(params) do
+    {:ok, ProductIndex.search_products(params)}
   end
 
   def create(%{"product" => product}) when is_map(product) do
     case Management.create_register(product) do
-      {:ok, _} = result ->
-        {:ok, product} = result
+      {:ok, product} = _result ->
         Cache.set(product.id, product)
-        ProductIndex.index_product(product)
-        result
+        ProductIndex.create_product(product)
+        product
       error -> error
     end
   end
@@ -42,14 +24,13 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     product
   end
 
-  def show(), do: {:error, %{code: 422, message: "Unable to find the product, check if you are passing the id correctly"}}
+  def show(_product), do: {:error, %{code: 422, message: "Unable to find the product, check if you are passing the id correctly"}}
 
-  def update(cache_product, %{"product" => register_params} ) do
-    {:ok, product} = cache_product
+  def update({:ok, product}, %{"product" => register_params} ) do
     case Management.update_register(product, register_params) do
-      {:ok, _} = update_product ->
+      {:ok, update_product} = _result ->
         Cache.set(product.id, update_product)
-        ProductIndex.index_product(update_product)
+        ProductIndex.create_product(update_product)
         update_product
       error -> error
     end
@@ -57,13 +38,12 @@ defmodule CadProductsPhoenixWeb.Services.Product do
 
   def update(_product, _params), do: {:error, %{code: 422, message: "Unable to update the product, check if it exists or if you are passing the json correctly"}}
 
-  def delete(cache_product) do
-    {:ok, product} = cache_product
+  def delete({:ok, product}) do
     Management.delete_register(product)
     Cache.delete(product.id)
-    ProductIndex.delete_index_product(product)
+    ProductIndex.delete_product(product)
   end
 
-  def delete(), do: {:error, %{code: 422, message: "Unable to delete the product, check if it exists"}}
+  def delete(_product), do: {:error, %{code: 422, message: "Unable to delete the product, check if it exists"}}
 
 end
