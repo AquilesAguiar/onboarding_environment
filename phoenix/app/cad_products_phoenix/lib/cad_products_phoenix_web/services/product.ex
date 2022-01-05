@@ -18,14 +18,6 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     end
   end
 
-  def create(_params), do: {:error, %{code: 422, message: "Unable to create the product, check if you are passing the json correctly"}}
-
-  def show(%{"product" => product}) do
-    product
-  end
-
-  def show(_product), do: {:error, %{code: 422, message: "Unable to find the product, check if you are passing the id correctly"}}
-
   def update(product, %{"product" => register_params} ) do
     case Management.update_register(product, register_params) do
       {:ok, update_product} ->
@@ -35,8 +27,6 @@ defmodule CadProductsPhoenixWeb.Services.Product do
       error -> error
     end
   end
-
-  def update(_product, _params), do: {:error, %{code: 422, message: "Unable to update the product, check if it exists or if you are passing the json correctly"}}
 
   def delete(product) do
     case Management.delete_register(product) do
@@ -48,5 +38,4 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     end
   end
 
-  def delete(_product), do: {:error, %{code: 422, message: "Unable to delete the product, check if it exists"}}
 end

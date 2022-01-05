@@ -21,8 +21,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   end
 
   def show(conn, _) do
-    %{"product" => conn.assigns[:register]}
-    |> Product.show()
+    conn.assigns[:register]
   end
 
   def update(conn, params) do

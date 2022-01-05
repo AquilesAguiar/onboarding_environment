@@ -22,25 +22,19 @@ defmodule CadProductsPhoenix.ProductIndex do
   end
 
   def search_products(params) do
-    if params == %{} do
-      "/cad_products/products/_search"
-      |> get()
-      |> format_json_products()
-    else
-      query = Enum.map_join(params, "*&", fn {k, v} -> "#{k}:#{v}" end)
-      "cad_products/products/_search?q=#{query}"
-      |> get()
-      |> format_json_products()
-    end
+    query = Enum.map_join(params, "*&", fn {k, v} -> "#{k}:#{v}" end)
+    "cad_products/products/_search#{if query != "", do: "?q="}#{query}"
+    |> get()
+    |> format_json_products()
   end
 
-  defp format_json_products(products) do
-    case products do
-      {:ok, 200, all_products} ->
-        products = all_products.hits.hits
-        products = Enum.map products, &(&1._source)
-        {:ok, products}
-      _ -> {:error, %{code: 400, message:  "it was not possible to get the products"}}
-    end
+  defp format_json_products({:ok, 200, all_products}) do
+    products = all_products.hits.hits
+    products = Enum.map products, &(&1._source)
+    {:ok, products}
+  end
+
+  defp format_json_products(_) do
+    {:error, %{code: 400, message:  "it was not possible to get the products"}}
   end
 end
