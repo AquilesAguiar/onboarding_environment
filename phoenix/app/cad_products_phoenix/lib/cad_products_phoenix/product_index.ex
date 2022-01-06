@@ -32,10 +32,10 @@ defmodule CadProductsPhoenix.ProductIndex do
   defp format_json_products({:ok, 200, all_products}) do
     products = all_products.hits.hits
     products = Enum.map products, &(&1._source)
-    {:elsk, products}
+    {:ok, products}
   end
 
-  defp format_json_products(_) do
-    {:mongodb, Management.list_register()}
+  defp format_json_products(error) do
+    {:error, error}
   end
 end
