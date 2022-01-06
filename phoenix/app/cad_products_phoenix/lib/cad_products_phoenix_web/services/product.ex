@@ -18,7 +18,6 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   end
 
   def update(product, register_params) do
-    IO.inspect(product)
     case Management.update_register(product, register_params) do
       {:ok, update_product} ->
         Cache.set(product.id, update_product)

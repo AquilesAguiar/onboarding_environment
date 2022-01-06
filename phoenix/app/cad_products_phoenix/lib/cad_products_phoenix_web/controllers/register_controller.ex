@@ -30,7 +30,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   end
 
   def delete(conn, _) do
-    Product.delete(conn.assigns[:product])
+    Product.delete(conn.assigns[:register])
   end
 
   defp get_cache(conn, _) do
