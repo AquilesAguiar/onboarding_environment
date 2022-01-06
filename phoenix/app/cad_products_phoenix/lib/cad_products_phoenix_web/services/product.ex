@@ -1,5 +1,4 @@
 defmodule CadProductsPhoenixWeb.Services.Product do
-
   alias CadProductsPhoenix.Cache
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.ProductIndex
@@ -8,7 +7,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     ProductIndex.search_products(params)
   end
 
-  def create(%{"product" => product}) when is_map(product) do
+  def create(product) when is_map(product) do
     case Management.create_register(product) do
       {:ok, product} ->
         Cache.set(product.id, product)
@@ -18,7 +17,8 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     end
   end
 
-  def update(product, %{"product" => register_params} ) do
+  def update(product, register_params) do
+    IO.inspect(product)
     case Management.update_register(product, register_params) do
       {:ok, update_product} ->
         Cache.set(product.id, update_product)
@@ -37,5 +37,4 @@ defmodule CadProductsPhoenixWeb.Services.Product do
       error -> error
     end
   end
-
 end

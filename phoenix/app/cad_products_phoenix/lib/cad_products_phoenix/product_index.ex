@@ -1,5 +1,4 @@
 defmodule CadProductsPhoenix.ProductIndex do
-
   import Tirexs.HTTP
 
   def create_product(prod) do

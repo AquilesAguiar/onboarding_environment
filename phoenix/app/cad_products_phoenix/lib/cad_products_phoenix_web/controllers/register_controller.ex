@@ -8,6 +8,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   action_fallback CadProductsPhoenixWeb.FallbackController
 
   plug :get_cache when action in [:show, :update, :delete]
+  plug :return_product when action in [:create, :update]
 
   def index(conn, _params) do
     case Product.fetch_products(conn.params) do
@@ -16,25 +17,24 @@ defmodule CadProductsPhoenixWeb.RegisterController do
     end
   end
 
-  def create(_conn, params) do
-    Product.create(params)
+  def create(conn, _) do
+    Product.create(conn.assigns[:product_params])
   end
 
   def show(conn, _) do
     conn.assigns[:register]
   end
 
-  def update(conn, params) do
-    Product.update(conn.assigns[:register], params)
+  def update(conn, _) do
+    Product.update(conn.assigns[:register], conn.assigns[:product_params])
   end
 
   def delete(conn, _) do
-    Product.delete(conn.assigns[:register])
+    Product.delete(conn.assigns[:product])
   end
 
   defp get_cache(conn, _) do
     id = conn.params["id"]
-
     case Cache.get(id) do
       {:ok, product} = result ->
         assign(conn, :register, product)
@@ -49,6 +49,17 @@ defmodule CadProductsPhoenixWeb.RegisterController do
           |> json(%{error: "Product with #{id} not found"})
           |> halt()
         end
+    end
+  end
+
+  defp return_product(conn, _) do
+    case conn.body_params do
+      %{"product" => product_params} -> assign(conn, :product_params, product_params)
+      _ ->
+        conn
+        |> put_status(422)
+        |> json(%{error: "Unable to find the product, check if it exists or if you are passing the json correctly"})
+        |> halt()
     end
   end
 end
