@@ -8,6 +8,10 @@ defmodule CadProductsPhoenixWeb.FallbackController do
 
   alias CadProductsPhoenix.Management.Register
 
+  def call(conn, register) do
+    render(conn, "index.json", register: register)
+  end
+
   def call(conn, %Register{} = register) do
     render(conn, "show.json", register: register)
   end

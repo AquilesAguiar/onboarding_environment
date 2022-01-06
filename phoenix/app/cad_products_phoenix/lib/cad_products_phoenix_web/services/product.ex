@@ -4,7 +4,11 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.ProductIndex
 
   def fetch_products(params) do
-    ProductIndex.search_products(params)
+    case ProductIndex.search_products(params) do
+      {:elsk, products} -> products
+      {:mongodb, products} -> products
+      error -> error
+    end
   end
 
   def create(product) when is_map(product) do

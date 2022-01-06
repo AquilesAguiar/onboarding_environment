@@ -12,10 +12,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   plug :return_product when action in [:create, :update]
 
   def index(conn, _params) do
-    case Product.fetch_products(conn.params) do
-      {:ok, products} -> render(conn, "index.json", register: products)
-      error -> error
-    end
+    IO.inspect(Product.fetch_products(conn.params))
   end
 
   def create(conn, _) do
