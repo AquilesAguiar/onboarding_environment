@@ -1,6 +1,8 @@
 defmodule CadProductsPhoenix.ProductIndex do
   import Tirexs.HTTP
 
+  alias CadProductsPhoenix.Management
+
   def create_product(prod) do
     product_json =
        %{
@@ -34,6 +36,6 @@ defmodule CadProductsPhoenix.ProductIndex do
   end
 
   defp format_json_products(_) do
-    {:error, %{code: 400, message:  "it was not possible to get the products"}}
+    {:ok, Management.list_register()}
   end
 end

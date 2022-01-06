@@ -3,6 +3,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   alias CadProductsPhoenix.Cache
   alias CadProductsPhoenix.Management
+  alias CadProductsPhoenix.Management.Register
   alias CadProductsPhoenixWeb.Services.Product
 
   action_fallback CadProductsPhoenixWeb.FallbackController
@@ -36,18 +37,18 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   defp get_cache(conn, _) do
     id = conn.params["id"]
     case Cache.get(id) do
-      {:ok, product} = result ->
+      {:ok, product} ->
         assign(conn, :register, product)
       _ ->
-        register = Management.get_register(id)
-        if register do
-          Cache.set(id, register)
-          assign(conn, :register, register)
-        else
-          conn
-          |> put_status(:not_found)
-          |> json(%{error: "Product with #{id} not found"})
-          |> halt()
+        case Management.get_register(id) do
+          %Register{} = register ->
+            Cache.set(id, register)
+            assign(conn, :register, register)
+          _ ->
+            conn
+            |> put_status(:not_found)
+            |> json(%{error: "Product with #{id} not found"})
+            |> halt()
         end
     end
   end
