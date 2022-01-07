@@ -24,7 +24,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     case Management.update_register(product, register_params) do
       {:ok, update_product} ->
         Cache.set(product.id, update_product)
-        ProductIndex.create_product(update_product)
+        ProductIndex.update_product(update_product)
         update_product
       error -> error
     end

@@ -2,17 +2,27 @@ defmodule CadProductsPhoenix.ProductIndex do
   import Tirexs.HTTP
 
   def create_product(prod) do
-    product_json =
-       %{
-        id: prod.id,
-        sku: prod.sku,
-        name: prod.name,
-        price: prod.price,
-        qtd: prod.qtd,
-        description: prod.description,
-        last_update_at: DateTime.to_iso8601(DateTime.utc_now())
-      }
+    product_json = product_json(prod)
+    post("/cad_products/products/#{product_json.id}", product_json)
+  end
+
+  def update_product(prod) do
+    product_json = product_json(prod)
     put("/cad_products/products/#{product_json.id}", product_json)
+  end
+
+  def product_json(prod) do
+    product_json =
+        %{
+          id: prod.id,
+          sku: prod.sku,
+          name: prod.name,
+          price: prod.price,
+          qtd: prod.qtd,
+          description: prod.description,
+          last_update_at: DateTime.to_iso8601(DateTime.utc_now())
+        }
+    product_json
   end
 
   def delete_product(product) do
