@@ -12,12 +12,12 @@ defmodule CadProductsPhoenixWeb.FallbackController do
     render(conn, "show.json", register: register)
   end
 
-  def call(conn, register) do
+  def call(conn, {:index, register}) do
     render(conn, "index.json", register: register)
   end
 
   def call(conn, {:ok, :no_content}) do
-    send_resp(conn, :no_content, "")
+    send_resp(conn, 204, "")
   end
 
   # This clause handles errors returned by Ecto's insert/update/delete.

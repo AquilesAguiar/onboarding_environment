@@ -60,7 +60,8 @@ defmodule CadProductsPhoenix.ManagementTest do
 
     test "delete_register/1 deletes the register" do
       register = register_fixture()
-      assert %Register{} = Management.delete_register(register)
+      {:ok, deleted_product} =Management.delete_register(register)
+      assert %Register{} = deleted_product
       assert_raise Ecto.NoResultsError, fn -> Management.get_register(register.id) end
     end
 

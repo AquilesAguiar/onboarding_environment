@@ -3,7 +3,6 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   alias CadProductsPhoenix.Cache
   alias CadProductsPhoenix.Management
-  alias CadProductsPhoenix.Management.Register
   alias CadProductsPhoenixWeb.Services.Product
 
   action_fallback CadProductsPhoenixWeb.FallbackController

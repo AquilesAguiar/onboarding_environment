@@ -25,8 +25,8 @@ defmodule CadProductsPhoenix.ProductIndex do
     product_json
   end
 
-  def delete_product(product) do
-    delete("/cad_products/products/#{product.id}")
+  def delete_product(id) do
+    delete("/cad_products/products/#{id}")
   end
 
   def search_products(params) do

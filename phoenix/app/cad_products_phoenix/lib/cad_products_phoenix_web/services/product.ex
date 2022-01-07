@@ -5,8 +5,8 @@ defmodule CadProductsPhoenixWeb.Services.Product do
 
   def fetch_products(params) do
     case ProductIndex.search_products(params) do
-      {:ok, products} -> products
-      {:error, _} -> Management.list_register()
+      {:ok, products} -> {:index, products}
+      {:error, _} -> {:index, Management.list_register()}
     end
   end
 
@@ -34,7 +34,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
     case Management.delete_register(product) do
       {:ok, _} ->
         Cache.delete(product.id)
-        ProductIndex.delete_product(product)
+        ProductIndex.delete_product(product.id)
         {:ok, :no_content}
       error -> error
     end
