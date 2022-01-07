@@ -1,8 +1,6 @@
 defmodule CadProductsPhoenix.ProductIndex do
   import Tirexs.HTTP
 
-  alias CadProductsPhoenix.Management
-
   def create_product(prod) do
     product_json =
        %{
@@ -14,7 +12,6 @@ defmodule CadProductsPhoenix.ProductIndex do
         description: prod.description,
         last_update_at: DateTime.to_iso8601(DateTime.utc_now())
       }
-
     put("/cad_products/products/#{product_json.id}", product_json)
   end
 

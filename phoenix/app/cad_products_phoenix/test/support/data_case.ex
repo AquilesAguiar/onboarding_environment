@@ -26,12 +26,7 @@ defmodule CadProductsPhoenix.DataCase do
   end
 
   setup tags do
-    # :ok = Ecto.Adapters.SQL.Sandbox.checkout(CadProductsPhoenix.Repo)
-
-    # unless tags[:async] do
-    #   Ecto.Adapters.SQL.Sandbox.mode(CadProductsPhoenix.Repo, {:shared, self()})
-    # end
-
+    CadProductsPhoenix.Repo.delete_all(CadProductsPhoenix.Management.Register)
     :ok
   end
 

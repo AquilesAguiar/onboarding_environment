@@ -88,7 +88,7 @@ defmodule CadProductsPhoenix.Management do
 
   """
   def delete_register(%Register{} = register) do
-    Repo.delete(register)
+    Repo.delete!(register)
   end
 
   @doc """
