@@ -37,11 +37,12 @@ defmodule CadProductsPhoenixWeb.RegisterController do
       {:ok, product} ->
         assign(conn, :register, product)
       _ ->
-        case Management.get_register(id) do
-          %Register{} = register ->
-            Cache.set(id, register)
-            assign(conn, :register, register)
-          _ ->
+        try do
+          register = Management.get_register(id)
+          Cache.set(id, register)
+          assign(conn, :register, register)
+        rescue
+          Ecto.NoResultsError ->
             conn
             |> put_status(:not_found)
             |> json(%{error: "Product with #{id} not found"})

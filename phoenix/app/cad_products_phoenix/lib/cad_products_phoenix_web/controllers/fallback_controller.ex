@@ -16,7 +16,6 @@ defmodule CadProductsPhoenixWeb.FallbackController do
     render(conn, "index.json", register: register)
   end
 
-
   def call(conn, {:ok, :no_content}) do
     send_resp(conn, :no_content, "")
   end

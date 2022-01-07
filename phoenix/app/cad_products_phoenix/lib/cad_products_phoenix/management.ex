@@ -36,7 +36,7 @@ defmodule CadProductsPhoenix.Management do
 
   """
   def get_register(id) do
-    Repo.one(from p in Register, where: p.id == ^id)
+    Repo.one!(from p in Register, where: p.id == ^id)
   end
 
   @doc """
