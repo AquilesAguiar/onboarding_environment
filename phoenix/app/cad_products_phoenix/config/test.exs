@@ -6,8 +6,8 @@ use Mix.Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :cad_products_phoenix, CadProductsPhoenix.Repo,
-  database: "cad_products_test#{System.get_env("MIX_TEST_PARTITION")}",
-  hostname: "localhost",
+  database: "cad_products_test",
+  hostname: "localhost"
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

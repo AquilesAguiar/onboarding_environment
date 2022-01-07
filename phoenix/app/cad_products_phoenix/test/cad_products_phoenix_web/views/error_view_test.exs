@@ -1,5 +1,5 @@
 defmodule CadProductsPhoenixWeb.ErrorViewTest do
-  use CadProductsPhoenixWeb.ConnCase, async: true
+  use CadProductsPhoenixWeb.ConnCase, async: false
 
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View
