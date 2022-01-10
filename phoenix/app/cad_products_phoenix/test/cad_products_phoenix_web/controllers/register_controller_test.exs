@@ -11,6 +11,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     qtd: 120,
     sku: "some sku"
   }
+
   @update_attrs %{
     description: "some updated description",
     name: "some updated name",
@@ -38,8 +39,8 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
 
   describe "create register" do
     test "renders register when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.register_path(conn, :create), register: @create_attrs)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
+      conn = post conn, Routes.register_path(conn, :create), register: @create_attrs
+      assert %{"id" => id} = json_response(conn, 200)["product"]
 
       conn = get(conn, Routes.register_path(conn, :show, id))
 
@@ -50,7 +51,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
                "price" => 120.5,
                "qtd" => 120,
                "sku" => "some sku"
-             } = json_response(conn, 200)["data"]
+             } = json_response(conn, 200)["product"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -64,7 +65,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
 
     test "renders register when data is valid", %{conn: conn, register: %Register{id: id} = register} do
       conn = put(conn, Routes.register_path(conn, :update, register), register: @update_attrs)
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+      assert %{"id" => id} = json_response(conn, 200)["data"]
       conn = get(conn, Routes.register_path(conn, :show, id))
 
       assert %{
