@@ -20,6 +20,7 @@ defmodule CadProductsPhoenix.ProductIndex do
           price: prod.price,
           qtd: prod.qtd,
           description: prod.description,
+          bar_code: prod.bar_code,
           last_update_at: DateTime.to_iso8601(DateTime.utc_now())
         }
     product_json
