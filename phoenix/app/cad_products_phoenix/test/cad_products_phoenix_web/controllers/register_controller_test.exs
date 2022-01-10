@@ -89,10 +89,8 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     test "deletes chosen register", %{conn: conn, register: register} do
       conn = delete(conn, Routes.register_path(conn, :delete, register))
       assert response(conn, 204)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.register_path(conn, :show, register))
-      end
+      new_conn = get(conn, Routes.register_path(conn, :show, register))
+      assert new_conn.status == 404
     end
   end
 
