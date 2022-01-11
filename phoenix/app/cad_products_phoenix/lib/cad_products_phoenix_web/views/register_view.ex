@@ -19,7 +19,7 @@ defmodule CadProductsPhoenixWeb.RegisterView do
       price: register.price,
       qtd: register.qtd,
       description: register.description,
-      bar_code: register.bar_code
+      barcode: register.barcode
     }
   end
 end

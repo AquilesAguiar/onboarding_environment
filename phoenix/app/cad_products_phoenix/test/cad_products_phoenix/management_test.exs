@@ -5,10 +5,9 @@ defmodule CadProductsPhoenix.ManagementTest do
 
   describe "register" do
     alias CadProductsPhoenix.Management.Register
-
-    @valid_attrs %{description: "some description", name: "some name", price: 120.5, qtd: 120, sku: "some sku"}
-    @update_attrs %{description: "some updated description", name: "some updated name", price: 456.7, qtd: 456, sku: "some updated sku"}
-    @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil}
+    @valid_attrs %{description: "some description", name: "some name", price: 120.5, qtd: 120, sku: "78845598", barcode: "123456789"}
+    @update_attrs %{description: "some updated description", name: "some updated name", price: 456.7, qtd: 456, sku: "70875298", barcode: "123446789"}
+    @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil, barcode: nil}
 
     def register_fixture(attrs \\ %{}) do
       {:ok, register} =
@@ -35,7 +34,8 @@ defmodule CadProductsPhoenix.ManagementTest do
       assert register.name == "some name"
       assert register.price == 120.5
       assert register.qtd == 120
-      assert register.sku == "some sku"
+      assert register.sku == "78845598"
+      assert register.barcode == "123456789"
     end
 
     test "create_register/1 with invalid data returns error changeset" do
@@ -49,7 +49,8 @@ defmodule CadProductsPhoenix.ManagementTest do
       assert register.name == "some updated name"
       assert register.price == 456.7
       assert register.qtd == 456
-      assert register.sku == "some updated sku"
+      assert register.sku == "70875298"
+      assert register.barcode == "123446789"
     end
 
     test "update_register/2 with invalid data returns error changeset" do

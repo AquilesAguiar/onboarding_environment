@@ -9,7 +9,8 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     name: "some name",
     price: 120.5,
     qtd: 120,
-    sku: "some sku"
+    sku: "78845598",
+    barcode: "123456789"
   }
 
   @update_attrs %{
@@ -17,9 +18,10 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     name: "some updated name",
     price: 456.7,
     qtd: 456,
-    sku: "some updated sku"
+    sku: "70875298",
+    barcode: "123446789"
   }
-  @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil}
+  @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil, barcode: nil}
 
   def fixture(:register) do
     {:ok, register} = Management.create_register(@create_attrs)
@@ -50,7 +52,8 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
                "name" => "some name",
                "price" => 120.5,
                "qtd" => 120,
-               "sku" => "some sku"
+               "sku" => "78845598",
+               "barcode" => "123456789"
              } = json_response(conn, 200)["product"]
     end
 
@@ -74,7 +77,8 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
                "name" => "some updated name",
                "price" => 456.7,
                "qtd" => 456,
-               "sku" => "some updated sku"
+               "sku" => "70875298",
+               "barcode" => "123446789"
              } = json_response(conn, 200)["product"]
     end
 
