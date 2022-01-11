@@ -5,8 +5,8 @@ defmodule CadProductsPhoenixWeb.Services.Product do
 
   def fetch_products(params) do
     case ProductIndex.search_products(params) do
-      {:ok, products} -> {:index, products}
-      {:error, _} -> {:index, Management.list_register()}
+      {:ok, products} -> {:ok, products}
+      {:error, _} -> {:ok, Management.list_register()}
     end
   end
 
