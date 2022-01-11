@@ -53,7 +53,6 @@ defmodule CadProductsPhoenixWeb.RegisterController do
   defp return_product(conn, _) do
     case conn.body_params do
       %{"product" => product_params} -> assign(conn, :product_params, product_params)
-      %{"register" => product_params} -> assign(conn, :product_params, product_params)
       _ ->
         conn
         |> put_status(422)
