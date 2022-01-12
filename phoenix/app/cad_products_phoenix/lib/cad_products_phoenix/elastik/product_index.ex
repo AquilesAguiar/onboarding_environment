@@ -1,4 +1,4 @@
-defmodule CadProductsPhoenix.ProductIndex do
+defmodule CadProductsPhoenix.Elastik.ProductIndex do
   import Tirexs.HTTP
 
   def create_product(prod) do
