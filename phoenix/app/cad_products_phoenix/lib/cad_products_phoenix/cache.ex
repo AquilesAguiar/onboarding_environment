@@ -9,6 +9,7 @@ defmodule CadProductsPhoenix.Cache do
 
   # Get a get a binary and decode
   def get(key), do: decode(Redix.command(@conn, ["GET", key]))
+
   # Delete products
   def delete(key), do: Redix.command(@conn, ["DEL", key])
 
