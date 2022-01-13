@@ -1,4 +1,5 @@
 defmodule CadProductsPhoenix.Cache do
+
   @conn :redis_server
 
   # Set a binary hash
@@ -8,10 +9,14 @@ defmodule CadProductsPhoenix.Cache do
   end
 
   # Get a get a binary and decode
-  def get(key), do: decode(Redix.command(@conn, ["GET", key]))
+  def get(key) do
+    decode(Redix.command(@conn, ["GET", key]))
+  end
 
   # Delete products
-  def delete(key), do: Redix.command(@conn, ["DEL", key])
+  def delete(key) do
+    Redix.command(@conn, ["DEL", key])
+  end
 
   defp encode(value) do
     value
