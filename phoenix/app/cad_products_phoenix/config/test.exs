@@ -15,5 +15,6 @@ config :cad_products_phoenix, CadProductsPhoenixWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :cad_products_phoenix, :redis_server, index: 1
 # Print only warnings and errors during test
 config :logger, level: :warn

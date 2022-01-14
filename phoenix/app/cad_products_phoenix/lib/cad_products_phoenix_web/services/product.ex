@@ -13,7 +13,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   def create(product) when is_map(product) do
     case Management.create_register(product) do
       {:ok, product} ->
-        Cache.set(:redis_server, product.id, product)
+        Cache.set(product.id, product)
         ProductIndex.create_product(product)
         product
       error -> error
@@ -23,7 +23,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   def update(product, register_params) do
     case Management.update_register(product, register_params) do
       {:ok, update_product} ->
-        Cache.set(:redis_server, product.id, update_product)
+        Cache.set(product.id, update_product)
         ProductIndex.update_product(update_product)
         update_product
       error -> error
@@ -33,7 +33,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   def delete(product) do
     case Management.delete_register(product) do
       {:ok, _} ->
-        Cache.delete(:redis_server, product.id)
+        Cache.delete(product.id)
         ProductIndex.delete_product(product.id)
         {:ok, :no_content}
       error -> error
