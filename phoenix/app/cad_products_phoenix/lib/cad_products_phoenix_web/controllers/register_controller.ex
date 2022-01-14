@@ -32,14 +32,13 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   defp get_cache(conn, _) do
     id = conn.params["id"]
-    server = Cache.connect_server(:redis_server)
-    case Cache.get(server, id) do
+    case Cache.get(:redis_server, id) do
       {:ok, product} ->
         assign(conn, :register, product)
       _ ->
         register = Management.get_register(id)
         if register != nil do
-          Cache.set(server, id, register)
+          Cache.set(:redis_server, id, register)
           assign(conn, :register, register)
         else
           conn

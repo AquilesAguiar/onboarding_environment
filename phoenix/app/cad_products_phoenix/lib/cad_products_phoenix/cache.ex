@@ -1,21 +1,28 @@
 defmodule CadProductsPhoenix.Cache do
 
-  @conn :redis_server
-
+  def connect_server(name) do
+    case Redix.start_link("redis://localhost:6379", name: name) do
+      {:ok, server} -> server
+      {:error, {:already_started, _}} -> name
+    end
+  end
   # Set a binary hash
-  def set(key, value) do
+  def set(name, key, value) do
+    name = connect_server(name)
     bin = encode(value)
-    Redix.command(@conn, ["SET", key, bin])
+    Redix.command(name, ["SET", key, bin])
   end
 
   # Get a get a binary and decode
-  def get(key) do
-    decode(Redix.command(@conn, ["GET", key]))
+  def get(name, key) do
+    name = connect_server(name)
+    decode(Redix.command(name, ["GET", key]))
   end
 
   # Delete products
-  def delete(key) do
-    Redix.command(@conn, ["DEL", key])
+  def delete(name, key) do
+    name = connect_server(name)
+    Redix.command(name, ["DEL", key])
   end
 
   defp encode(value) do

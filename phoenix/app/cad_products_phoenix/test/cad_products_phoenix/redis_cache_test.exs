@@ -1,8 +1,11 @@
 defmodule CadProductsPhoenix.RedisCacheTest do
   use CadProductsPhoenixWeb.ConnCase, async: false
 
+  alias CadProductsPhoenix.Cache
+
   setup_all do
     %{
+      name: :redix_test,
       key: "some_key",
       value: "some_value",
       invalid_key: "invalid_key"
@@ -11,24 +14,16 @@ defmodule CadProductsPhoenix.RedisCacheTest do
 
   describe "redis cache test" do
 
-    def bid_redis_test() do
-      {:ok, conn} = Redix.start_link("redis://localhost:6379/3", name: :redix_test)
-      conn
+    test "set a data in cache, if data is valid", %{name: name, key: key, value: value} do
+      assert Cache.set(name, key, value) == {:ok, "OK"}
     end
 
-    test "set a data in cache, if data is valid", %{key: key, value: value} do
-      conn = bid_redis_test()
-      assert Redix.command(conn, ["SET", key, value]) == {:ok, "OK"}
+    test "get a data in cache, if key is valid", %{name: name, key: key} do
+      assert Cache.get(name, key) == {:ok, "some_value"}
     end
 
-    test "get a data in cache, if key is valid", %{key: key} do
-      conn = bid_redis_test()
-      assert Redix.command(conn, ["GET", key]) == {:ok, "some_value"}
-    end
-
-    test "get a data in cache, if key is invalid", %{invalid_key: invalid_key} do
-      conn = bid_redis_test()
-      assert Redix.command(conn, ["GET", invalid_key]) == {:ok, nil}
+    test "get a data in cache, if key is invalid", %{name: name, invalid_key: invalid_key} do
+      assert Cache.delete(name, invalid_key) == {:ok, 0}
     end
   end
 end

@@ -11,7 +11,7 @@ defmodule CadProductsPhoenix.Elastik.ProductIndex do
     put("/cad_products/products/#{product_json.id}", product_json)
   end
 
-  def product_json(prod) do
+  defp product_json(prod) do
     product_json =
         %{
           id: prod.id,
