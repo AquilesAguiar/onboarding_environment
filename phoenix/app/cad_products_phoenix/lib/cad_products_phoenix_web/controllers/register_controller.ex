@@ -32,20 +32,20 @@ defmodule CadProductsPhoenixWeb.RegisterController do
 
   defp get_cache(conn, _) do
     id = conn.params["id"]
-    case Cache.get(id) do
+    server = Cache.connect_server(:redis_server)
+    case Cache.get(server, id) do
       {:ok, product} ->
         assign(conn, :register, product)
       _ ->
-        try do
-          register = Management.get_register(id)
-          Cache.set(id, register)
+        register = Management.get_register(id)
+        if register != nil do
+          Cache.set(server, id, register)
           assign(conn, :register, register)
-        rescue
-          Ecto.NoResultsError ->
-            conn
-            |> put_status(:not_found)
-            |> json(%{error: "Product with #{id} not found"})
-            |> halt()
+        else
+          conn
+          |> put_status(:not_found)
+          |> json(%{error: "Product with #{id} not found"})
+          |> halt()
         end
     end
   end
