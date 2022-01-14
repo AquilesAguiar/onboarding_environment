@@ -31,7 +31,7 @@ defmodule CadProductsPhoenix.Elastik.ProductIndex do
   end
 
   def search_products(params) do
-    query = Enum.map_join(params, "*&", fn {k, v} -> "#{k}:#{v}" end)
+    query = Enum.map_join(params, "*&", fn {k, v} -> "#{k}:#{v}%20AND%20" end)
     "cad_products/products/_search#{if query != "", do: "?q="}#{query}"
     |> get()
     |> format_json_products()
