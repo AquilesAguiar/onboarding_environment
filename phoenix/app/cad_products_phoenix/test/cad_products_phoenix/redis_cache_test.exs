@@ -13,7 +13,7 @@ defmodule CadProductsPhoenix.RedisCacheTest do
   end
 
   describe "redis cache test" do
-    test "set a data in cache, if data is valid", %{key: key, value: value} do
+    test "set a data in cache", %{key: key, value: value} do
       assert Cache.set(key, value) == {:ok, "OK"}
     end
 
