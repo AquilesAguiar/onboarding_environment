@@ -1,6 +1,6 @@
 defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.Cache
-  alias CadProductsPhoenix.Elastik.ProductIndex
+  alias CadProductsPhoenix.ProductIndex
   alias CadProductsPhoenix.Management
 
   def fetch_products(params) do
