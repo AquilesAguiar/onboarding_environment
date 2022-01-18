@@ -3,7 +3,10 @@ defmodule CadProductsPhoenix.ProductIndex do
 
   def create_product(prod) do
     product_json = product_json(prod)
-    post("#{get_link()}#{product_json.id}", product_json)
+    case post("#{get_link()}#{product_json.id}", product_json) do
+      {:ok, 201, _} -> {:ok, 201}
+      _ -> {:error, 422}
+    end
   end
 
   def update_product(prod) do
@@ -12,7 +15,6 @@ defmodule CadProductsPhoenix.ProductIndex do
   end
 
   defp product_json(prod) do
-    product_json =
     %{
       id: prod.id,
       sku: prod.sku,
@@ -26,8 +28,17 @@ defmodule CadProductsPhoenix.ProductIndex do
   end
 
   def delete_product(id) do
-    delete("#{get_link()}#{id}")
+    case delete("#{get_link()}#{id}") do
+      {:ok, 200, _} -> {:ok, 200}
+      _ -> {:error, 422}
+    end
   end
+
+  def delete_all_products() do
+    delete("/cad_products_test/")
+  end
+
+  def get_product(id), do: get("#{get_link()}#{id}")
 
   def search_products(params) do
     query = Enum.map_join(params, "%20AND%20", fn {k, v} -> "#{k}:#{v}" end)
