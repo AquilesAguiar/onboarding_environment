@@ -23,7 +23,6 @@ defmodule CadProductsPhoenix.ProductIndex do
       barcode: prod.barcode,
       last_update_at: DateTime.to_iso8601(DateTime.utc_now())
     }
-    product_json
   end
 
   def delete_product(id) do

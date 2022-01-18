@@ -37,7 +37,7 @@ defmodule CadProductsPhoenixWeb.RegisterController do
         assign(conn, :register, product)
       _ ->
         register = Management.get_register(id)
-        if register != nil do
+        if register do
           Cache.set(id, register)
           assign(conn, :register, register)
         else

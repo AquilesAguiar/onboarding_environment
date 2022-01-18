@@ -61,8 +61,7 @@ defmodule CadProductsPhoenix.ManagementTest do
 
     test "delete_register/1 deletes the register" do
       register = register_fixture()
-      {:ok, deleted_product} = Management.delete_register(register)
-      assert %Register{} = deleted_product
+      assert {:ok, %Register{}} = Management.delete_register(register)
     end
 
     test "change_register/1 returns a register changeset" do
