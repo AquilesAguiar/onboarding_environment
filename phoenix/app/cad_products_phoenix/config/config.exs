@@ -28,7 +28,8 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :cad_products_phoenix, :redis_server, index: 0
-config :cad_products_phoenix, :elsk_search, link: "/cad_products/products/"
+config :cad_products_phoenix, :elsk_link, link: "/cad_products/"
+config :cad_products_phoenix, :elsk_index, index: "products/"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

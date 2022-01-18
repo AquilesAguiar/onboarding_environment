@@ -35,7 +35,8 @@ defmodule CadProductsPhoenix.ProductIndex do
   end
 
   def delete_all_products() do
-    delete("/cad_products_test/")
+    link = Application.get_env(:cad_products_phoenix, :elsk_link)[:link]
+    delete(link)
   end
 
   def get_product(id), do: get("#{get_link()}#{id}")
@@ -57,5 +58,9 @@ defmodule CadProductsPhoenix.ProductIndex do
     {:error, error}
   end
 
-  defp get_link(), do: Application.get_env(:cad_products_phoenix, :elsk_search)[:link]
+  defp get_link() do
+    link = Application.get_env(:cad_products_phoenix, :elsk_link)[:link]
+    index = Application.get_env(:cad_products_phoenix, :elsk_index)[:index]
+    "#{link}#{index}"
+  end
 end
