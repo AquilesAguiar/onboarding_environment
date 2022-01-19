@@ -39,7 +39,12 @@ defmodule CadProductsPhoenix.ProductIndex do
     delete(link)
   end
 
-  def get_product(id), do: get("#{get_link()}#{id}")
+  def get_product(id) do
+    case get("#{get_link()}#{id}") do
+      {:ok, 200, get_product} -> get_product
+      _ -> {:error, 422}
+    end
+  end
 
   def search_products(params) do
     query = Enum.map_join(params, "%20AND%20", fn {k, v} -> "#{k}:#{v}" end)
