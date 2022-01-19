@@ -11,7 +11,10 @@ defmodule CadProductsPhoenix.ProductIndex do
 
   def update_product(prod) do
     product_json = product_json(prod)
-    put("#{get_link()}#{product_json.id}", product_json)
+    case put("#{get_link()}#{product_json.id}", product_json) do
+      {:ok, 201, _} -> {:ok, 201}
+      _ -> {:error, 422}
+    end
   end
 
   defp product_json(prod) do
