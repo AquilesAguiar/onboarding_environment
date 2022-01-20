@@ -48,9 +48,9 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
   describe "index" do
     test "lists all register", %{conn: conn} do
       with_mock Tirexs.HTTP,
-      get: fn
-        _param -> {:ok, 200, %{hits: %{hits: [%{_source: @product_els}]}}}
-      end do
+        get: fn
+          _param -> {:ok, 200, %{hits: %{hits: [%{_source: @product_els}]}}}
+        end do
         conn = get(conn, Routes.register_path(conn, :index))
 
         product_string = Map.new(@product_els, fn {k, v} -> {Atom.to_string(k), v} end)
@@ -62,15 +62,15 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
 
     test "search a register", %{conn: conn} do
       with_mock ProductIndex,
-      search_products: fn
-        %{} -> {:ok, @product_els}
-      end do
+        search_products: fn
+          %{} -> {:ok, [@product_els]}
+        end do
         conn = get(conn, Routes.register_path(conn, :index))
 
-        # product_string = Map.new(@product_els, fn {k, v} -> {Atom.to_string(k), v} end)
+        product_string = Map.new(@product_els, fn {k, v} -> {Atom.to_string(k), v} end)
 
-        # assert %{"products" => [^product_string]} = json_response(conn, 200)
-        # assert_called(ProductIndex.search_products("/cad_products_test/products/_search?q=id:61e580fc6057a40203db022e"))
+        assert %{"products" => [^product_string]} = json_response(conn, 200)
+        assert_called(ProductIndex.search_products(%{}))
       end
     end
   end

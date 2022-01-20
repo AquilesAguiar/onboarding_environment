@@ -31,7 +31,7 @@ defmodule CadProductsPhoenix.ElskTest do
     end
 
     test "get a product, id is invalid" do
-      get_product = ProductIndex.get_product(@product.id)
+      get_product = ProductIndex.get_product(@invalid_key)
       assert get_product == {:error, 422}
     end
 
