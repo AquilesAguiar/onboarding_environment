@@ -23,37 +23,22 @@ defmodule CadProductsPhoenix.ManagementTest do
 
     test "list_register/0 returns all register" do
       register = register_fixture()
-      with_mock ProductIndex,
-        search_products: fn
-          _params -> {:ok, [register]}
-        end do
-          assert Management.list_register() == [register]
-      end
+      assert Management.list_register() == [register]
     end
 
     test "get_register!/1 returns the register with given id" do
       register = register_fixture()
-      with_mock ProductIndex,
-        get_product: fn
-          _id -> register
-        end do
-          assert Management.get_register(register.id) == register
-      end
+      assert Management.get_register(register.id) == register
     end
 
     test "create_register/1 with valid data creates a register" do
-      with_mock ProductIndex,
-        create_product: fn
-          _prod -> {:ok, 201}
-        end do
-          assert {:ok, %Register{} = register} = Management.create_register(@valid_attrs)
-          assert register.description == "some description"
-          assert register.name == "some name"
-          assert register.price == 120.5
-          assert register.qtd == 120
-          assert register.sku == "78845598"
-          assert register.barcode == "123456789"
-      end
+      assert {:ok, %Register{} = register} = Management.create_register(@valid_attrs)
+      assert register.description == "some description"
+      assert register.name == "some name"
+      assert register.price == 120.5
+      assert register.qtd == 120
+      assert register.sku == "78845598"
+      assert register.barcode == "123456789"
     end
 
     test "create_register/1 with invalid data returns error changeset" do
@@ -62,19 +47,13 @@ defmodule CadProductsPhoenix.ManagementTest do
 
     test "update_register/2 with valid data updates the register" do
       register = register_fixture()
-      with_mock ProductIndex,
-        update_product: fn
-          _prod -> {:ok, 201}
-        end do
-
-        assert {:ok, %Register{} = register} = Management.update_register(register, @update_attrs)
-        assert register.description == "some updated description"
-        assert register.name == "some updated name"
-        assert register.price == 456.7
-        assert register.qtd == 456
-        assert register.sku == "70875298"
-        assert register.barcode == "123446789"
-      end
+      assert {:ok, %Register{} = register} = Management.update_register(register, @update_attrs)
+      assert register.description == "some updated description"
+      assert register.name == "some updated name"
+      assert register.price == 456.7
+      assert register.qtd == 456
+      assert register.sku == "70875298"
+      assert register.barcode == "123446789"
     end
 
     test "update_register/2 with invalid data returns error changeset" do
@@ -85,12 +64,7 @@ defmodule CadProductsPhoenix.ManagementTest do
 
     test "delete_register/1 deletes the register" do
       register = register_fixture()
-      with_mock ProductIndex,
-        delete_product: fn
-          _id -> {:ok, 200}
-        end do
-        assert {:ok, %Register{}} = Management.delete_register(register)
-      end
+      assert {:ok, %Register{}} = Management.delete_register(register)
     end
 
     test "change_register/1 returns a register changeset" do
