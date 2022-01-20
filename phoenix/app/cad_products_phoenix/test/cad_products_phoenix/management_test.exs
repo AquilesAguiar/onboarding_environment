@@ -1,11 +1,8 @@
 defmodule CadProductsPhoenix.ManagementTest do
   use CadProductsPhoenix.DataCase, async: false
 
-  import Mock
-
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register
-  alias CadProductsPhoenix.ProductIndex
 
   describe "register" do
     @valid_attrs %{description: "some description", name: "some name", price: 120.5, qtd: 120, sku: "78845598", barcode: "123456789"}
