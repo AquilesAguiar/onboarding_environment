@@ -15,12 +15,11 @@ defmodule CadProductsPhoenix.ElskTest do
     qtd: 120,
     sku: "78845598",
     barcode: "123456789",
-    id: "61e580fc6057a40203db022e",
+    id: "61e580fc6057a40203db022e"
   }
   @invalid_key "25l580gc6057a40203db0220"
 
   describe "elasticksearch module test" do
-
     test "post a new product" do
       assert ProductIndex.create_product(@product) == {:ok, 201}
     end

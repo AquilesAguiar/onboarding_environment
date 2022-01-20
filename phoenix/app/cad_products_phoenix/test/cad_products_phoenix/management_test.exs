@@ -5,8 +5,22 @@ defmodule CadProductsPhoenix.ManagementTest do
   alias CadProductsPhoenix.Management.Register
 
   describe "register" do
-    @valid_attrs %{description: "some description", name: "some name", price: 120.5, qtd: 120, sku: "78845598", barcode: "123456789"}
-    @update_attrs %{description: "some updated description", name: "some updated name", price: 456.7, qtd: 456, sku: "70875298", barcode: "123446789"}
+    @valid_attrs %{
+      description: "some description",
+      name: "some name",
+      price: 120.5,
+      qtd: 120,
+      sku: "78845598",
+      barcode: "123456789"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      name: "some updated name",
+      price: 456.7,
+      qtd: 456,
+      sku: "70875298",
+      barcode: "123446789"
+    }
     @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil, barcode: nil}
 
     def register_fixture(attrs \\ %{}) do

@@ -24,6 +24,8 @@ defmodule CadProductsPhoenix.Management.Register do
     |> validate_required([:name])
     |> validate_number(:price, greater_than: 0)
     |> validate_length(:barcode, min: 8, max: 10)
-    |> validate_format(:sku, ~r/^([a-zA-Z0-9]|\-)+$/, message: "Accept only alphanumerics and hifen")
+    |> validate_format(:sku, ~r/^([a-zA-Z0-9]|\-)+$/,
+      message: "Accept only alphanumerics and hifen"
+    )
   end
 end

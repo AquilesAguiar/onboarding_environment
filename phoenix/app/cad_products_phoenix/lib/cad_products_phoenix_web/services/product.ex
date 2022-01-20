@@ -16,7 +16,9 @@ defmodule CadProductsPhoenixWeb.Services.Product do
         Cache.set(product.id, product)
         ProductIndex.create_product(product)
         product
-      error -> error
+
+      error ->
+        error
     end
   end
 
@@ -26,7 +28,9 @@ defmodule CadProductsPhoenixWeb.Services.Product do
         Cache.set(product.id, update_product)
         ProductIndex.update_product(update_product)
         update_product
-      error -> error
+
+      error ->
+        error
     end
   end
 
@@ -36,7 +40,9 @@ defmodule CadProductsPhoenixWeb.Services.Product do
         Cache.delete(product.id)
         ProductIndex.delete_product(product.id)
         {:ok, :no_content}
-      error -> error
+
+      error ->
+        error
     end
   end
 end
