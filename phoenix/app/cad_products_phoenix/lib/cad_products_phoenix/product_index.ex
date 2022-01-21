@@ -50,7 +50,7 @@ defmodule CadProductsPhoenix.ProductIndex do
 
   def search_products(params) do
     query = Enum.map_join(params, "%20AND%20", fn {k, v} -> "#{k}:#{v}" end)
-
+    IO.inspect("#{get_link()}#{get_index()}_search#{if query != "", do: "?q="}#{query}")
     "#{get_link()}#{get_index()}_search#{if query != "", do: "?q="}#{query}"
     |> get()
     |> format_json_products()
