@@ -23,7 +23,7 @@ defmodule CadProductsPhoenix.Management.Register do
     |> cast(attrs, [:sku, :name, :price, :qtd, :description, :barcode])
     |> validate_required([:name])
     |> validate_number(:price, greater_than: 0)
-    |> validate_length(:barcode, min: 8, max: 10)
+    |> validate_length(:barcode, min: 8, max: 13)
     |> validate_format(:sku, ~r/^([a-zA-Z0-9]|\-)+$/,
       message: "Accept only alphanumerics and hifen"
     )

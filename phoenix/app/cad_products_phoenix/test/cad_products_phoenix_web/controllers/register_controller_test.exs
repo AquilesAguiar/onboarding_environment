@@ -53,9 +53,8 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
         end do
         conn = get(conn, Routes.register_path(conn, :index))
 
-        product_string = Map.new(@product_els, fn {k, v} -> {Atom.to_string(k), v} end)
+        assert %{"products" => [atom_to_string(@product_els)]} == json_response(conn, 200)
 
-        assert %{"products" => [^product_string]} = json_response(conn, 200)
         assert_called(Tirexs.HTTP.get("/cad_products_test/products/_search"))
       end
     end
@@ -67,9 +66,8 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
         end do
         conn = get(conn, Routes.register_path(conn, :index), id: "61e580fc6057a40203db022e")
 
-        product_string = Map.new(@product_els, fn {k, v} -> {Atom.to_string(k), v} end)
+        assert %{"products" => [atom_to_string(@product_els)]} == json_response(conn, 200)
 
-        assert %{"products" => [^product_string]} = json_response(conn, 200)
         assert_called(ProductIndex.search_products(%{"id" => "61e580fc6057a40203db022e"}))
       end
     end
@@ -82,14 +80,18 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
           _params -> {:ok, 201}
         end do
         conn = post conn, Routes.register_path(conn, :create), product: @create_attrs
+
         assert %{"id" => id} = json_response(conn, 200)["product"]
+
         assert Management.get_register(id) != nil
+
         assert_called(ProductIndex.create_product(@create_attrs))
       end
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.register_path(conn, :create), product: @invalid_attrs)
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -129,10 +131,12 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
         delete_product: fn
           _id -> {:ok, 201}
         end do
-        conn = delete(conn, Routes.register_path(conn, :delete, register))
+        conn
+        |> delete(Routes.register_path(conn, :delete, register))
+        |> response(204)
+
         assert_called(ProductIndex.delete_product(register.id))
 
-        assert response(conn, 204)
         assert Management.get_register(register.id) == nil
       end
     end
@@ -141,5 +145,9 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
   defp create_register(_) do
     register = fixture(:register)
     %{register: register}
+  end
+
+  defp atom_to_string(map) do
+    Map.new(map, fn {k, v} -> {Atom.to_string(k), v} end)
   end
 end

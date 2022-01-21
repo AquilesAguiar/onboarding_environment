@@ -69,7 +69,7 @@ defmodule CadProductsPhoenix.ProductIndexTest do
   describe "ProductIndex.delete_product test" do
     test "delete a product, if id is valid" do
       ProductIndex.create_product(@product)
-      assert ProductIndex.delete_product(@product.id) == {:ok, 200}
+      assert ProductIndex.delete_product(@product.id) == {:ok, 204}
     end
 
     test "delete a product, id is invalid" do

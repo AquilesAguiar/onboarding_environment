@@ -76,6 +76,7 @@ defmodule CadProductsPhoenix.ManagementTest do
     test "delete_register/1 deletes the register" do
       register = register_fixture()
       assert {:ok, %Register{}} = Management.delete_register(register)
+      assert Management.get_register(register.id) == nil
     end
 
     test "change_register/1 returns a register changeset" do

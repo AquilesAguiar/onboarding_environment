@@ -6,7 +6,7 @@ defmodule CadProductsPhoenix.ProductIndex do
 
     case post("#{get_link()}#{get_index()}#{product_json.id}", product_json) do
       {:ok, 201, _} -> {:ok, 201}
-      _ -> {:error, 422}
+      _ -> {:error, 500}
     end
   end
 
@@ -15,26 +15,13 @@ defmodule CadProductsPhoenix.ProductIndex do
 
     case put("#{get_link()}#{get_index()}#{product_json.id}", product_json) do
       {:ok, 201, _} -> {:ok, 201}
-      _ -> {:error, 422}
+      _ -> {:error, 500}
     end
-  end
-
-  defp product_json(prod) do
-    %{
-      id: prod.id,
-      sku: prod.sku,
-      name: prod.name,
-      price: prod.price,
-      qtd: prod.qtd,
-      description: prod.description,
-      barcode: prod.barcode,
-      last_update_at: DateTime.to_iso8601(DateTime.utc_now())
-    }
   end
 
   def delete_product(id) do
     case delete("#{get_link()}#{get_index()}#{id}") do
-      {:ok, 200, _} -> {:ok, 200}
+      {:ok, 200, _} -> {:ok, 204}
       _ -> {:error, 422}
     end
   end
@@ -50,9 +37,23 @@ defmodule CadProductsPhoenix.ProductIndex do
 
   def search_products(params) do
     query = Enum.map_join(params, "%20AND%20", fn {k, v} -> "#{k}:#{v}" end)
+
     "#{get_link()}#{get_index()}_search#{if query != "", do: "?q="}#{query}"
     |> get()
     |> format_json_products()
+  end
+
+  defp product_json(prod) do
+    %{
+      id: prod.id,
+      sku: prod.sku,
+      name: prod.name,
+      price: prod.price,
+      qtd: prod.qtd,
+      description: prod.description,
+      barcode: prod.barcode,
+      last_update_at: DateTime.to_iso8601(DateTime.utc_now())
+    }
   end
 
   defp format_json_products({:ok, 200, all_products}) do
