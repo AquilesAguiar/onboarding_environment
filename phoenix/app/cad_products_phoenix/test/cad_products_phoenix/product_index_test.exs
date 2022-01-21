@@ -1,4 +1,4 @@
-defmodule CadProductsPhoenix.ElskTest do
+defmodule CadProductsPhoenix.ProductIndexTest do
   use CadProductsPhoenixWeb.ConnCase, async: false
 
   alias CadProductsPhoenix.ProductIndex
