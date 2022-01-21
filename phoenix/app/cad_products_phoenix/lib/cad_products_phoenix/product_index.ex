@@ -65,8 +65,8 @@ defmodule CadProductsPhoenix.ProductIndex do
     {:ok, products}
   end
 
-  defp format_json_products(error) do
-    {:error, error}
+  defp format_json_products(_error) do
+    {:error, 422}
   end
 
   defp get_link() do

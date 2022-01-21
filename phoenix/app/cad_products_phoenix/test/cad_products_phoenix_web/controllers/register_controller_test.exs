@@ -63,23 +63,29 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     test "search a register", %{conn: conn} do
       with_mock ProductIndex,
         search_products: fn
-          %{} -> {:ok, [@product_els]}
+          %{"id" => "61e580fc6057a40203db022e"} -> {:ok, [@product_els]}
         end do
-        conn = get(conn, Routes.register_path(conn, :index))
+        conn = get(conn, Routes.register_path(conn, :index), id: "61e580fc6057a40203db022e")
 
         product_string = Map.new(@product_els, fn {k, v} -> {Atom.to_string(k), v} end)
 
         assert %{"products" => [^product_string]} = json_response(conn, 200)
-        assert_called(ProductIndex.search_products(%{}))
+        assert_called(ProductIndex.search_products(%{"id" => "61e580fc6057a40203db022e"}))
       end
     end
   end
 
   describe "create register" do
     test "renders register when data is valid", %{conn: conn} do
-      conn = post conn, Routes.register_path(conn, :create), product: @create_attrs
-      assert %{"id" => id} = json_response(conn, 200)["product"]
-      assert Management.get_register(id) != nil
+      with_mock ProductIndex,
+        create_product: fn
+          _params -> {:ok, 201}
+        end do
+        conn = post conn, Routes.register_path(conn, :create), product: @create_attrs
+        assert %{"id" => id} = json_response(conn, 200)["product"]
+        assert Management.get_register(id) != nil
+        assert_called(ProductIndex.create_product(@create_attrs))
+      end
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -95,11 +101,18 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
       conn: conn,
       register: %Register{id: _id} = register
     } do
-      conn = put(conn, Routes.register_path(conn, :update, register), product: @update_attrs)
+      with_mock ProductIndex,
+        update_product: fn
+          _upd_prod -> {:ok, 201}
+        end do
+        conn = put(conn, Routes.register_path(conn, :update, register), product: @update_attrs)
 
-      assert %{"id" => id} = json_response(conn, 200)["product"]
+        assert %{"id" => id} = json_response(conn, 200)["product"]
 
-      assert Management.get_register(id) != nil
+        assert Management.get_register(id) != nil
+
+        assert_called(ProductIndex.update_product(@update_attrs))
+      end
     end
 
     test "renders errors when data is invalid", %{conn: conn, register: register} do
@@ -112,9 +125,16 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     setup [:create_register]
 
     test "deletes chosen register", %{conn: conn, register: register} do
-      conn = delete(conn, Routes.register_path(conn, :delete, register))
-      assert response(conn, 204)
-      assert Management.get_register(register.id) == nil
+      with_mock ProductIndex,
+        delete_product: fn
+          _id -> {:ok, 201}
+        end do
+        conn = delete(conn, Routes.register_path(conn, :delete, register))
+        assert_called(ProductIndex.delete_product(register.id))
+
+        assert response(conn, 204)
+        assert Management.get_register(register.id) == nil
+      end
     end
   end
 
