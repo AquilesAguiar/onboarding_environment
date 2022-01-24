@@ -79,7 +79,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
         create_product: fn
           _params -> {:ok, 201}
         end do
-        conn = post conn, Routes.register_path(conn, :create), product: @create_attrs
+        conn = post(conn, Routes.register_path(conn, :create), product: @create_attrs)
 
         assert %{"id" => id} = json_response(conn, 200)["product"]
 
