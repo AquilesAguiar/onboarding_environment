@@ -4,7 +4,7 @@ defmodule CadProductsPhoenix.ProductIndex do
   def create_product(prod) do
     product_json = product_json(prod)
 
-    case post("#{get_link()}#{get_index()}#{product_json.id}", product_json) do
+    case post(get_link(product_json.id), product_json) do
       {:ok, 201, _} -> {:ok, 201}
       _ -> {:error, 500}
     end
@@ -13,14 +13,14 @@ defmodule CadProductsPhoenix.ProductIndex do
   def update_product(prod) do
     product_json = product_json(prod)
 
-    case put("#{get_link()}#{get_index()}#{product_json.id}", product_json) do
+    case put(get_link(product_json.id), product_json) do
       {:ok, 201, _} -> {:ok, 201}
       _ -> {:error, 500}
     end
   end
 
   def delete_product(id) do
-    case delete("#{get_link()}#{get_index()}#{id}") do
+    case delete(get_link(id)) do
       {:ok, 200, _} -> {:ok, 204}
       _ -> {:error, 422}
     end
@@ -29,7 +29,7 @@ defmodule CadProductsPhoenix.ProductIndex do
   def delete_all_products(), do: delete(get_link())
 
   def get_product(id) do
-    case get("#{get_link()}#{get_index()}#{id}") do
+    case get(get_link(id)) do
       {:ok, 200, get_product} -> get_product
       _ -> {:error, 422}
     end
@@ -68,4 +68,5 @@ defmodule CadProductsPhoenix.ProductIndex do
 
   defp get_link(), do: Application.get_env(:cad_products_phoenix, :elsk_link)[:link]
   defp get_index(), do: Application.get_env(:cad_products_phoenix, :elsk_index)[:index]
+  defp get_link(id), do: "#{get_link()}#{get_index()}#{id}"
 end
