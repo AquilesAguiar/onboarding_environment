@@ -30,13 +30,13 @@ defmodule CadProductsPhoenix.ProductIndexTest do
 
   @invalid_key "25l580gc6057a40203db0220"
 
-  describe "ProductIndex.create_product" do
+  describe "ProductIndex.create_product/1" do
     test "post a new product" do
       assert ProductIndex.create_product(@product) == {:ok, 201}
     end
   end
 
-  describe "ProductIndex.get_product" do
+  describe "ProductIndex.get_product/1" do
     test "get a product, if id is valid" do
       ProductIndex.create_product(@product)
       get_product = ProductIndex.get_product(@product.id)
@@ -49,14 +49,14 @@ defmodule CadProductsPhoenix.ProductIndexTest do
     end
   end
 
-  describe "ProductIndex.search_products" do
+  describe "ProductIndex.search_products/1" do
     test "search_products a product" do
       ProductIndex.create_product(@product)
       assert ProductIndex.search_products(%{"id" => "61e580fc6057a40203db022e"}) == {:ok, []}
     end
   end
 
-  describe "ProductIndex.update_product" do
+  describe "ProductIndex.update_product/1" do
     test "update a product, if is valid" do
       ProductIndex.create_product(@product)
       ProductIndex.update_product(@product_upd)
@@ -66,7 +66,7 @@ defmodule CadProductsPhoenix.ProductIndexTest do
     end
   end
 
-  describe "ProductIndex.delete_product" do
+  describe "ProductIndex.delete_product/1" do
     test "delete a product, if id is valid" do
       ProductIndex.create_product(@product)
       assert ProductIndex.delete_product(@product.id) == {:ok, 204}

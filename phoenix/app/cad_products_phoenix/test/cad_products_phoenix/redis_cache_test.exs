@@ -13,13 +13,13 @@ defmodule CadProductsPhoenix.RedisCacheTest do
     }
   end
 
-  describe "Cache.set" do
+  describe "Cache.set/2" do
     test "set a data in cache", %{key: key, value: value} do
       assert Cache.set(key, value) == {:ok, "OK"}
     end
   end
 
-  describe "Cache.get" do
+  describe "Cache.get/1" do
     test "get a data in cache, if key is valid", %{key: key, value: value} do
       Cache.set(key, value)
       assert Cache.get(key) == {:ok, "some_value"}
@@ -30,7 +30,7 @@ defmodule CadProductsPhoenix.RedisCacheTest do
     end
   end
 
-  describe "Cache.delete" do
+  describe "Cache.delete/1" do
     test "delete a data in cache, if key is valid", %{key: key, value: value} do
       Cache.set(key, value)
       assert Cache.delete(key) == {:ok, 1}
