@@ -15,5 +15,8 @@ config :cad_products_phoenix, CadProductsPhoenixWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :cad_products_phoenix, :redis_server, index: 1
+config :cad_products_phoenix, :elsk_link, link: "/cad_products_test/"
+config :cad_products_phoenix, :elsk_index, index: "products/"
 # Print only warnings and errors during test
 config :logger, level: :warn

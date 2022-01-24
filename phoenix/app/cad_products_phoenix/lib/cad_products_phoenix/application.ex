@@ -5,7 +5,11 @@ defmodule CadProductsPhoenix.Application do
 
   use Application
 
+  alias CadProductsPhoenix.Cache
+
   def start(_type, _args) do
+    redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
+
     children = [
       # Start the Ecto repository
       CadProductsPhoenix.Repo,
@@ -15,8 +19,7 @@ defmodule CadProductsPhoenix.Application do
       {Phoenix.PubSub, name: CadProductsPhoenix.PubSub},
       # Start the Endpoint (http/https)
       CadProductsPhoenixWeb.Endpoint,
-
-      {Redix, {"redis://localhost:6379", [name: :redis_server]}}
+      {Redix, {"redis://localhost:6379/#{redis_config[:index]}", [name: Cache.get_conn()]}}
       # Start a worker by calling: CadProductsPhoenix.Worker.start_link(arg)
       # {CadProductsPhoenix.Worker, arg}
     ]

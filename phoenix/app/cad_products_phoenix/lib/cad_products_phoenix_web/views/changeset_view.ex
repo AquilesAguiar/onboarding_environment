@@ -1,5 +1,6 @@
 defmodule CadProductsPhoenixWeb.ChangesetView do
   use CadProductsPhoenixWeb, :view
+
   @doc """
   Traverses and translates changeset errors.
 

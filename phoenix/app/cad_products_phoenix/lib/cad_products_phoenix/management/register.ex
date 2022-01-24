@@ -14,12 +14,18 @@ defmodule CadProductsPhoenix.Management.Register do
     field :description, :string
     field :price, :float
     field :qtd, :integer
+    field :barcode, :string
   end
 
   @doc false
   def changeset(register, attrs) do
     register
-    |> cast(attrs, [:sku, :name, :price, :qtd, :description])
-    |> validate_required([:sku, :name, :price, :qtd, :description])
+    |> cast(attrs, [:sku, :name, :price, :qtd, :description, :barcode])
+    |> validate_required([:name])
+    |> validate_number(:price, greater_than: 0)
+    |> validate_length(:barcode, min: 8, max: 13)
+    |> validate_format(:sku, ~r/^([a-zA-Z0-9]|\-)+$/,
+      message: "Accept only alphanumerics and hifen"
+    )
   end
 end
