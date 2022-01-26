@@ -44,6 +44,7 @@ defmodule CadProductsPhoenix.MixProject do
       {:mongodb_ecto, github: "michalmuskala/mongodb_ecto"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:redix, "~> 1.1"},
+      {:tirexs, "~> 0.8"},
       {:mock, "~> 0.3.0", only: :test},
     ]
   end
