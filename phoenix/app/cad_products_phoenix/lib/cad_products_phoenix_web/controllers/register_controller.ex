@@ -1,7 +1,7 @@
 defmodule CadProductsPhoenixWeb.RegisterController do
   use CadProductsPhoenixWeb, :controller
 
-  alias CadProductsPhoenix.Cache
+  alias CadProductsPhoenix.Services.Cache
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenixWeb.Services.Product
 

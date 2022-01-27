@@ -46,6 +46,7 @@ defmodule CadProductsPhoenix.MixProject do
       {:redix, "~> 1.1"},
       {:tirexs, "~> 0.8"},
       {:mock, "~> 0.3.0", only: :test},
+      {:csv, "~> 2.4"},
       {:exq, "~> 0.9"},
       {:exq_ui, "~> 0.10.0"},
       {:poison, "~> 3.1"}

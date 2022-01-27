@@ -1,4 +1,4 @@
-defmodule CadProductsPhoenix.Cache do
+defmodule CadProductsPhoenix.Services.Cache do
   @conn :redis_server
 
   # Set a binary hash

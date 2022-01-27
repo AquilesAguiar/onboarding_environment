@@ -5,7 +5,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
 
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register
-  alias CadProductsPhoenix.ProductIndex
+  alias CadProductsPhoenix.Services.ProductIndex
 
   @create_attrs %{
     description: "some description",

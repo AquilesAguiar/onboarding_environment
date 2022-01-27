@@ -1,7 +1,7 @@
-defmodule CadProductsPhoenix.ProductIndexTest do
+defmodule CadProductsPhoenix.Services.ProductIndexTest do
   use CadProductsPhoenixWeb.ConnCase, async: false
 
-  alias CadProductsPhoenix.ProductIndex
+  alias CadProductsPhoenix.Services.ProductIndex
 
   setup do
     ProductIndex.delete_all_products()

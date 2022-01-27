@@ -5,7 +5,7 @@ defmodule CadProductsPhoenix.Application do
 
   use Application
 
-  alias CadProductsPhoenix.Cache
+  alias CadProductsPhoenix.Services.Cache
 
   def start(_type, _args) do
     redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
