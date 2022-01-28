@@ -1,8 +1,6 @@
 defmodule CadProductsPhoenix.Services.CsvReport do
-  import CSV
-
   def tocsv(map) do
-    name = "report#{DateTime.to_iso8601(DateTime.utc_now())}"
+    name = "report#{DateTime.to_iso8601(DateTime.utc_now())}.csv"
     file = File.open!("lib/cad_products_phoenix_web/reports/#{name}", [:write, :utf8])
 
     atom_to_string(map)

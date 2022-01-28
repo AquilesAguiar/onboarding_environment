@@ -2,10 +2,13 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   alias CadProductsPhoenix.Services.Cache
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Services.ProductIndex
+  alias CadProductsPhoenix.Services.CsvReport
 
   def fetch_products(params) do
     case ProductIndex.search_products(params) do
-      {:ok, products} -> {:ok, products}
+      {:ok, products} ->
+        CsvReport.tocsv(products)
+        {:ok, products}
       {:error, 422} ->
         {:ok, Management.list_register()}
     end
