@@ -3,5 +3,4 @@ defmodule CadProductsPhoenixWeb.Jobs.CreateReportJob do
   def perform(map) do
     CsvReport.tocsv(map)
   end
-
 end
