@@ -9,6 +9,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
       {:ok, products} ->
         CsvReport.tocsv(products)
         {:ok, products}
+
       {:error, 422} ->
         {:ok, Management.list_register()}
     end
