@@ -7,7 +7,7 @@ defmodule CadProductsPhoenixWeb.Services.Product do
   def fetch_products(params) do
     case ProductIndex.search_products(params) do
       {:ok, products} ->
-        # CsvReport.tocsv(products)
+        CsvReport.tocsv(products)
         {:ok, products}
 
       {:error, 422} ->
