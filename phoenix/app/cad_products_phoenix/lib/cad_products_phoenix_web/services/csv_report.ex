@@ -14,5 +14,4 @@ defmodule CadProductsPhoenix.Services.CsvReport do
   end
 
   defp get_folder(), do: Application.get_env(:cad_products_phoenix, :csv_folder)[:folder]
-
 end
