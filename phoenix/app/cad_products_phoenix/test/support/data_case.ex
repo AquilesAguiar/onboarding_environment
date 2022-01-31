@@ -25,7 +25,7 @@ defmodule CadProductsPhoenix.DataCase do
     end
   end
 
-  setup tags do
+  setup _tags do
     CadProductsPhoenix.Repo.delete_all(CadProductsPhoenix.Management.Register)
     :ok
   end

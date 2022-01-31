@@ -26,7 +26,7 @@ defmodule CadProductsPhoenixWeb.ChannelCase do
     end
   end
 
-  setup tags do
+  setup _tags do
     # :ok = Ecto.Adapters.SQL.Sandbox.checkout(CadProductsPhoenix.Repo)
 
     # unless tags[:async] do

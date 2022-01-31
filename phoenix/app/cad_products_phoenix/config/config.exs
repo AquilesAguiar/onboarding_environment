@@ -30,6 +30,7 @@ config :phoenix, :json_library, Jason
 config :cad_products_phoenix, :redis_server, index: 0
 config :cad_products_phoenix, :elsk_link, link: "/cad_products/"
 config :cad_products_phoenix, :elsk_index, index: "products/"
+config :cad_products_phoenix, :csv_folder, folder: "lib/cad_products_phoenix_web/reports/"
 
 config :exq,
   name: Exq,
