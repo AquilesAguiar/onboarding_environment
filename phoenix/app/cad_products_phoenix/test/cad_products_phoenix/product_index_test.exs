@@ -39,8 +39,9 @@ defmodule CadProductsPhoenix.Services.ProductIndexTest do
   describe "ProductIndex.get_product/1" do
     test "get a product, if id is valid" do
       ProductIndex.create_product(@product)
-      get_product = ProductIndex.get_product(@product.id)
-      assert get_product[:_id] == @product.id
+      :timer.sleep(1000)
+      {:ok, [get_search]} = ProductIndex.search_products(%{"id" => @product.id})
+      assert get_search.id == @product.id
     end
 
     test "get a product, id is invalid" do
