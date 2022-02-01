@@ -19,9 +19,9 @@ defmodule CadProductsPhoenix.CsvReportTest do
     :ok
   end
 
-  describe "CsvReport.tocsv/1" do
+  describe "CsvReport.generate_report/1" do
     test "converting map to csv" do
-      assert CsvReport.tocsv(@product) == :ok
+      assert CsvReport.generate_report(@product) == :ok
       assert CsvReport.delete_file() == :ok
     end
   end

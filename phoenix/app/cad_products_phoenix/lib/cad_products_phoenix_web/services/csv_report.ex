@@ -1,5 +1,5 @@
 defmodule CadProductsPhoenix.Services.CsvReport do
-  def tocsv(map) do
+  def generate_report(map) do
     file = File.open!("#{get_folder()}report_products.csv", [:write, :utf8])
 
     csv_stream = CSV.Encoding.Encoder.encode(map, headers: true)
