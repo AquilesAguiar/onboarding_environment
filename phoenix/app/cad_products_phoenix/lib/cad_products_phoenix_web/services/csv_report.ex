@@ -10,6 +10,12 @@ defmodule CadProductsPhoenix.Services.CsvReport do
     Enum.each(csv_stream, &IO.write(file, &1))
   end
 
+  def csv_to_map(path) do
+    File.stream!(path)
+    |> CSV.decode()
+    |> Enum.map(fn(x) -> x end)
+  end
+
   defp product_json(products) do
     Enum.map(products, fn prod ->
       %{

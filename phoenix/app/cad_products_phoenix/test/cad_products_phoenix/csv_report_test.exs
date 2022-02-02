@@ -3,22 +3,16 @@ defmodule CadProductsPhoenix.CsvReportTest do
 
   alias CadProductsPhoenix.Services.CsvReport
 
-  @product [
-    %{
-      description: "some description",
-      name: "name",
-      price: 120.5,
-      qtd: 120,
-      sku: "78845598",
-      barcode: "123456789",
-      id: "61e580fc6057a40203db022e"
-    }
-  ]
+  def path_fixture() do
+    {:ok, path} = Briefly.create()
+    path
+  end
 
   describe "CsvReport.generate_report/1" do
     test "converting map to csv" do
-      {:ok, path} = Briefly.create()
+      path = path_fixture()
       assert CsvReport.generate_report(path) == :ok
+      assert CsvReport.csv_to_map(path) != nil
     end
   end
 end
