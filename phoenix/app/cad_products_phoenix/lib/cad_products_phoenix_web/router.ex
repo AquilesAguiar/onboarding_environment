@@ -16,7 +16,7 @@ defmodule CadProductsPhoenixWeb.Router do
   scope "/", CadProductsPhoenixWeb do
     pipe_through :api
     resources "/registers", RegisterController, only: [:index, :show, :create, :update, :delete]
-    resources "/report", ReportController, only: [:index]
+    resources "/report", ReportController, only: [:create]
   end
 
   scope "/exq", ExqUi do

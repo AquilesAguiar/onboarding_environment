@@ -5,7 +5,7 @@ defmodule CadProductsPhoenixWeb.ReportController do
 
   alias CadProductsPhoenix.Management
 
-  def index(conn, _) do
+  def create(conn, _) do
     products = product_json(Management.list_register())
     path = "lib/cad_products_phoenix_web/reports/report_products.csv"
 
