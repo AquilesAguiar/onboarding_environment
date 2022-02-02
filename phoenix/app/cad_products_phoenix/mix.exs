@@ -49,7 +49,8 @@ defmodule CadProductsPhoenix.MixProject do
       {:csv, "~> 2.4"},
       {:exq, "~> 0.9"},
       {:exq_ui, "~> 0.10.0"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:briefly, "~> 0.3"}
     ]
   end
 

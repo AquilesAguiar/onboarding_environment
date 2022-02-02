@@ -6,7 +6,7 @@ defmodule CadProductsPhoenixWeb.ReportController do
   @path "lib/cad_products_phoenix_web/reports/report_products.csv"
 
   def create(conn, _) do
-    case Exq.enqueue(Exq, "report", CadProductsPhoenixWeb.Jobs.CreateReportJob, []) do
+    case Exq.enqueue(Exq, "report", CadProductsPhoenixWeb.Jobs.CreateReportJob, [@path]) do
       {:ok, _} -> send_download(conn, {:file, @path})
       {:error, message} -> send_resp(conn, 400, message)
     end

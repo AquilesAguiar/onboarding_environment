@@ -14,14 +14,11 @@ defmodule CadProductsPhoenix.CsvReportTest do
       id: "61e580fc6057a40203db022e"
     }
   ]
-  setup do
-    CsvReport.delete_file()
-    :ok
-  end
 
   describe "CsvReport.generate_report/1" do
     test "converting map to csv" do
-      assert CsvReport.generate_report(@product) == :ok
+      {:ok, path} = Briefly.create()
+      assert CsvReport.generate_report(path) == :ok
       assert CsvReport.delete_file() == :ok
     end
   end
