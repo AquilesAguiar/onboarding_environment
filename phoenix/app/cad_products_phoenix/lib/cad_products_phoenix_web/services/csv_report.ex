@@ -10,8 +10,6 @@ defmodule CadProductsPhoenix.Services.CsvReport do
     Enum.each(csv_stream, &IO.write(file, &1))
   end
 
-  defp get_folder(), do: Application.get_env(:cad_products_phoenix, :csv_folder)[:folder]
-
   defp product_json(products) do
     Enum.map(products, fn prod ->
       %{

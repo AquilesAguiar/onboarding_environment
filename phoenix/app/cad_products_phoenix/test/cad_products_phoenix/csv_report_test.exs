@@ -19,7 +19,6 @@ defmodule CadProductsPhoenix.CsvReportTest do
     test "converting map to csv" do
       {:ok, path} = Briefly.create()
       assert CsvReport.generate_report(path) == :ok
-      assert CsvReport.delete_file() == :ok
     end
   end
 end
