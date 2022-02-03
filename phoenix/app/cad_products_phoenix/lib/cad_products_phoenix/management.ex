@@ -53,7 +53,7 @@ defmodule CadProductsPhoenix.Management do
   """
   def create_register(attrs \\ %{}) do
     %Register{}
-    |> Register.changeset(attrs)
+    |> Register.changeset(attrs, "create")
     |> Repo.insert()
   end
 
@@ -71,7 +71,7 @@ defmodule CadProductsPhoenix.Management do
   """
   def update_register(%Register{} = register, attrs) do
     register
-    |> Register.changeset(attrs)
+    |> Register.changeset(attrs, "updt")
     |> Repo.update()
   end
 
@@ -91,16 +91,4 @@ defmodule CadProductsPhoenix.Management do
     Repo.delete(register)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking register changes.
-
-  ## Examples
-
-      iex> change_register(register)
-      %Ecto.Changeset{data: %Register{}}
-
-  """
-  def change_register(%Register{} = register, attrs \\ %{}) do
-    Register.changeset(register, attrs)
-  end
 end

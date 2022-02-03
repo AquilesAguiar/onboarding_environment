@@ -83,7 +83,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
 
         assert %{"id" => id} = json_response(conn, 200)["product"]
 
-        assert Management.get_register(id) != nil
+        assert is_nil(Management.get_register(id)) == false
 
         assert_called(ProductIndex.create_product(@create_attrs))
       end
@@ -92,7 +92,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.register_path(conn, :create), product: @invalid_attrs)
 
-      assert json_response(conn, 422)["errors"] != %{}
+      assert is_nil(json_response(conn, 422)["errors"]) == false
     end
   end
 
