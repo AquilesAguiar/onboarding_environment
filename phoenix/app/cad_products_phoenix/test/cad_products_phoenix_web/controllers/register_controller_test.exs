@@ -12,7 +12,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     name: "some name",
     price: 120.5,
     qtd: 120,
-    sku: "45885",
+    sku: "#{Enum.random(0..6999)}",
     barcode: "123456789"
   }
 
@@ -37,7 +37,16 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
   @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil, barcode: nil}
 
   def fixture(:register) do
-    {:ok, register} = Management.create_register(@create_attrs)
+    fixture_attrs = %{
+      description: "some description",
+      name: "some name",
+      price: 120.5,
+      qtd: 120,
+      sku: "#{Enum.random(0..6999)}",
+      barcode: "123456789"
+    }
+
+    {:ok, register} = Management.create_register(fixture_attrs)
     register
   end
 
