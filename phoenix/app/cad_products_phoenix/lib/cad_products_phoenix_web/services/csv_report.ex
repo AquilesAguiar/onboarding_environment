@@ -13,6 +13,7 @@ defmodule CadProductsPhoenix.Services.CsvReport do
   defp product_json(products) do
     Enum.map(products, fn prod ->
       %{
+        id: prod.id,
         sku: prod.sku,
         name: prod.name,
         price: prod.price,

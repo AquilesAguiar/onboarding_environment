@@ -66,7 +66,7 @@ defmodule CadProductsPhoenix.Services.ProductIndex do
     {:error, 422}
   end
 
-  defp get_link(), do: Application.get_env(:cad_products_phoenix, :elsk_link)
-  defp get_index(), do: Application.get_env(:cad_products_phoenix, :elsk_index)
+  defp get_link(), do: Application.get_env(:cad_products_phoenix, :elsk_link)[:link]
+  defp get_index(), do: Application.get_env(:cad_products_phoenix, :elsk_index)[:index]
   defp get_link(id), do: "#{get_link()}#{get_index()}#{id}"
 end
