@@ -1,12 +1,15 @@
 defmodule CadProductsPhoenixWeb.Services.Product do
-  alias CadProductsPhoenix.Cache
   alias CadProductsPhoenix.Management
-  alias CadProductsPhoenix.ProductIndex
+  alias CadProductsPhoenix.Services.Cache
+  alias CadProductsPhoenix.Services.ProductIndex
 
   def fetch_products(params) do
     case ProductIndex.search_products(params) do
-      {:ok, products} -> {:ok, products}
-      {:error, 422} -> {:ok, Management.list_register()}
+      {:ok, products} ->
+        {:ok, products}
+
+      {:error, 422} ->
+        {:ok, Management.list_register()}
     end
   end
 

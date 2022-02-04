@@ -1,7 +1,7 @@
 defmodule CadProductsPhoenix.RedisCacheTest do
   use CadProductsPhoenixWeb.ConnCase, async: false
 
-  alias CadProductsPhoenix.Cache
+  alias CadProductsPhoenix.Services.Cache
 
   setup do
     Cache.flush()

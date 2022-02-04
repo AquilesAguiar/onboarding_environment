@@ -27,9 +27,27 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :cad_products_phoenix, :redis_server, index: 0
-config :cad_products_phoenix, :elsk_link, link: "/cad_products/"
-config :cad_products_phoenix, :elsk_index, index: "products/"
+config :cad_products_phoenix, redis_server: 0
+config :cad_products_phoenix, elsk_link: "/cad_products/"
+config :cad_products_phoenix, elsk_index: "products/"
+config :cad_products_phoenix, csv_folder: "lib/cad_products_phoenix_web/reports/"
+
+config :exq,
+  name: Exq,
+  host: "127.0.0.1",
+  port: 6379,
+  namespace: "exq",
+  concurrency: :infinite,
+  queues: ["report"],
+  poll_timeout: 50,
+  scheduler_poll_timeout: 200,
+  scheduler_enable: true,
+  max_retries: 25,
+  mode: :default,
+  shutdown_timeout: 5000
+
+config :exq_ui,
+  server: true
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

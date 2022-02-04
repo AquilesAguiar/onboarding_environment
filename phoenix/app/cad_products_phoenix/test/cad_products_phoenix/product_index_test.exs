@@ -1,7 +1,7 @@
-defmodule CadProductsPhoenix.ProductIndexTest do
+defmodule CadProductsPhoenix.Services.ProductIndexTest do
   use CadProductsPhoenixWeb.ConnCase, async: false
 
-  alias CadProductsPhoenix.ProductIndex
+  alias CadProductsPhoenix.Services.ProductIndex
 
   setup do
     ProductIndex.delete_all_products()
@@ -39,8 +39,8 @@ defmodule CadProductsPhoenix.ProductIndexTest do
   describe "ProductIndex.get_product/1" do
     test "get a product, if id is valid" do
       ProductIndex.create_product(@product)
-      get_product = ProductIndex.get_product(@product.id)
-      assert get_product[:_id] == @product.id
+      get_search = ProductIndex.get_product(@product.id)
+      assert get_search[:_id] == @product.id
     end
 
     test "get a product, id is invalid" do

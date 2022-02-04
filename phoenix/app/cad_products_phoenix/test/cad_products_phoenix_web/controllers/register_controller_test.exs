@@ -5,14 +5,14 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
 
   alias CadProductsPhoenix.Management
   alias CadProductsPhoenix.Management.Register
-  alias CadProductsPhoenix.ProductIndex
+  alias CadProductsPhoenix.Services.ProductIndex
 
   @create_attrs %{
     description: "some description",
     name: "some name",
     price: 120.5,
     qtd: 120,
-    sku: "45885",
+    sku: "12345",
     barcode: "123456789"
   }
 
@@ -34,10 +34,14 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     sku: "787897",
     barcode: "123456789"
   }
+
   @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil, barcode: nil}
 
   def fixture(:register) do
-    {:ok, register} = Management.create_register(@create_attrs)
+
+    fixture_attrs = %{@create_attrs | sku: "#{Enum.random(0..6999)}"}
+
+    {:ok, register} = Management.create_register(fixture_attrs)
     register
   end
 
@@ -92,6 +96,11 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.register_path(conn, :create), product: @invalid_attrs)
 
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+
+    test "renders errors when sku is not unique", %{conn: conn} do
+      conn = post(conn, Routes.register_path(conn, :create), product: @create_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
