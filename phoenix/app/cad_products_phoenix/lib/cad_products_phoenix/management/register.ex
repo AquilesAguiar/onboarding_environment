@@ -50,17 +50,12 @@ defmodule CadProductsPhoenix.Management.Register do
 
   def find_by_sku(sku, id) do
     cond do
-      sku == nil && id == nil ->
-        nil
-
       sku != nil && id == nil ->
         Repo.one(from p in Register, where: p.sku == ^sku)
 
-      sku == nil && id != nil ->
-        nil
-
       sku != nil && id != nil ->
         Repo.one(from p in Register, where: p.id != ^id and p.sku == ^sku)
+      true -> nil
     end
   end
 end
