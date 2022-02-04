@@ -94,7 +94,7 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.register_path(conn, :create), product: @create_attrs)
+      conn = post(conn, Routes.register_path(conn, :create), product: @invalid_attrs)
 
       assert json_response(conn, 422)["errors"] != %{}
     end
