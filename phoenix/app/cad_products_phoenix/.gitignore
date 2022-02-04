@@ -28,3 +28,5 @@ cad_products_phoenix-*.tar
 /priv/static/
 
 *.tmp
+
+*.csv
