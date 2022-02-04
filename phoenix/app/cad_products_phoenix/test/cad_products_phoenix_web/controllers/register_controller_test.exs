@@ -37,24 +37,9 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
 
   @invalid_attrs %{description: nil, name: nil, price: nil, qtd: nil, sku: nil, barcode: nil}
 
-  @not_unique_sku %{
-    description: "some other description",
-    name: "some other name",
-    price: 120.5,
-    qtd: 120,
-    sku: "12345",
-    barcode: "123456789"
-  }
-
   def fixture(:register) do
-    fixture_attrs = %{
-      description: "some description",
-      name: "some name",
-      price: 120.5,
-      qtd: 120,
-      sku: "#{Enum.random(0..6999)}",
-      barcode: "123456789"
-    }
+
+    fixture_attrs = %{@create_attrs | sku: "#{Enum.random(0..6999)}"}
 
     {:ok, register} = Management.create_register(fixture_attrs)
     register
@@ -109,13 +94,13 @@ defmodule CadProductsPhoenixWeb.RegisterControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.register_path(conn, :create), product: @invalid_attrs)
+      conn = post(conn, Routes.register_path(conn, :create), product: @create_attrs)
 
       assert json_response(conn, 422)["errors"] != %{}
     end
 
     test "renders errors when sku is not unique", %{conn: conn} do
-      conn = post(conn, Routes.register_path(conn, :create), product: @not_unique_sku)
+      conn = post(conn, Routes.register_path(conn, :create), product: @create_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
