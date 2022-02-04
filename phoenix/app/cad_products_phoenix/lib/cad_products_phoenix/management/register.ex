@@ -29,7 +29,7 @@ defmodule CadProductsPhoenix.Management.Register do
     register
     |> cast(attrs, [:sku, :name, :price, :qtd, :description, :barcode])
     |> validate_unique_sku(:sku, id)
-    |> validate_required([:name])
+    |> validate_required([:sku, :name])
     |> validate_number(:price, greater_than: 0)
     |> validate_length(:barcode, min: 8, max: 13)
     |> validate_format(:sku, ~r/^([a-zA-Z0-9]|\-)+$/,
@@ -39,7 +39,7 @@ defmodule CadProductsPhoenix.Management.Register do
 
   def validate_unique_sku(changeset, field, id) do
     sku = get_field(changeset, field)
-    result = get_query(sku, id)
+    result = find_by_sku(sku, id)
 
     if is_nil(result) do
       changeset
@@ -48,7 +48,7 @@ defmodule CadProductsPhoenix.Management.Register do
     end
   end
 
-  def get_query(sku, id) do
+  def find_by_sku(sku, id) do
     cond do
       sku == nil && id == nil ->
         nil
@@ -57,7 +57,7 @@ defmodule CadProductsPhoenix.Management.Register do
         Repo.one(from p in Register, where: p.sku == ^sku)
 
       sku == nil && id != nil ->
-        Repo.one(from p in Register, where: p.id == ^id)
+        nil
 
       sku != nil && id != nil ->
         Repo.one(from p in Register, where: p.id != ^id and p.sku == ^sku)
