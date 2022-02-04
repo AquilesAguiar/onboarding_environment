@@ -19,7 +19,7 @@ defmodule CadProductsPhoenix.Application do
       {Phoenix.PubSub, name: CadProductsPhoenix.PubSub},
       # Start the Endpoint (http/https)
       CadProductsPhoenixWeb.Endpoint,
-      {Redix, {"redis://localhost:6379/#{redis_config[:index]}", [name: Cache.get_conn()]}}
+      {Redix, {"redis://localhost:6379/#{redis_config}", [name: Cache.get_conn()]}}
       # Start a worker by calling: CadProductsPhoenix.Worker.start_link(arg)
       # {CadProductsPhoenix.Worker, arg}
     ]
