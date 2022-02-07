@@ -10,6 +10,10 @@ use Mix.Config
 # config :mailer_service,
 #   ecto_repos: [MailerService.Repo]
 
+config :mailer_service, MailerServiceWeb.Mailer,
+  adapter: Bamboo.MandrillAdapter,
+  api_key: "products_email"
+
 # Configures the endpoint
 config :mailer_service, MailerServiceWeb.Endpoint,
   url: [host: "localhost"],
