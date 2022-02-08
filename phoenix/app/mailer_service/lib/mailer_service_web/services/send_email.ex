@@ -4,7 +4,7 @@ defmodule MailerService.SendEmail do
   alias MailerService.Mailer
 
   def send_welcome_email() do
-    Email.welcome_email()   # Create your email
-    |> Mailer.deliver_later() # Send your email
+    Email.welcome_email()
+    |> Mailer.deliver_later()
   end
 end
