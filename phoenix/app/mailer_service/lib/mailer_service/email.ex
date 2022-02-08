@@ -3,9 +3,9 @@ defmodule MailerService.Email do
 
   def welcome_email do
     new_email(
-      to: "john@example.com",
-      from: "support@myapp.com",
-      subject: "Welcome to the app.",
+      to: "aquiles.aguiar@b2wdigital.com",
+      from: "aquilesvibe@hotmail.com",
+      subject: "teste do mailer",
       html_body: "<strong>Thanks for joining!</strong>",
       text_body: "Thanks for joining!"
     )

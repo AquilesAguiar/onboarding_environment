@@ -20,7 +20,7 @@ defmodule MailerService.MixProject do
   def application do
     [
       mod: {MailerService.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bamboo]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :bamboo_smtp]
     ]
   end
 
@@ -41,7 +41,8 @@ defmodule MailerService.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:bamboo, "~> 2.2.0"},
+      {:bamboo, "~> 1.5"},
+      {:bamboo_smtp, "~> 3.0.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end

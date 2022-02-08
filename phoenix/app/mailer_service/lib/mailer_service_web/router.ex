@@ -5,8 +5,10 @@ defmodule MailerServiceWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", MailerServiceWeb do
+  scope "/email", MailerServiceWeb do
     pipe_through :api
+
+    post "/send", EmailController, :send
   end
 
 end
