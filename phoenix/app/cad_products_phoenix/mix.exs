@@ -20,7 +20,7 @@ defmodule CadProductsPhoenix.MixProject do
   def application do
     [
       mod: {CadProductsPhoenix.Application, []},
-      extra_applications: [:tirexs, :logger, :runtime_tools, :mongodb_ecto, :ecto, :exq]
+      extra_applications: [:tirexs, :logger, :runtime_tools, :mongodb_ecto, :ecto, :exq, :httpoison]
     ]
   end
 
@@ -50,7 +50,8 @@ defmodule CadProductsPhoenix.MixProject do
       {:exq, "~> 0.9"},
       {:exq_ui, "~> 0.10.0"},
       {:poison, "~> 3.1"},
-      {:briefly, "~> 0.3"}
+      {:briefly, "~> 0.3"},
+      {:httpoison, "~> 1.8"}
     ]
   end
 
