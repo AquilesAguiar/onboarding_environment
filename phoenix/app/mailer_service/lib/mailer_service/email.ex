@@ -2,20 +2,19 @@ defmodule MailerService.Email do
   import Bamboo.Email
 
   def create_email(email) do
-    content = convert_content(email.data)
-
+    content = convert_content(email)
     new_email(
-      to: email.to,
-      from: email.from,
-      subject: email.subject,
-      html_body: email.html_body,
-      text_body: email.text_body
+      to: content["to"],
+      from: content["from"],
+      subject: content["subject"],
+      html_body: content["html_body"],
+      text_body: content["text_body"]
     )
-    |> put_attachment(%Bamboo.Attachment{content_type: email.content_type, filename: email.filename, data: content})
+    |> put_attachment(%Bamboo.Attachment{content_type: content["content_type"], filename: content["filename"], data: content["data"]})
   end
 
   defp convert_content(data) do
     {:ok, content} = Base.decode64(data)
-    content
+    Poison.decode!(content, [])
   end
 end

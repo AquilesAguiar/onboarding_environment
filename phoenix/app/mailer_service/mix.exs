@@ -43,6 +43,7 @@ defmodule MailerService.MixProject do
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:bamboo, "~> 1.5"},
       {:bamboo_smtp, "~> 3.0.0"},
+      {:poison, "~> 3.1"},
       {:plug_cowboy, "~> 2.0"}
     ]
   end

@@ -3,7 +3,8 @@ defmodule MailerServiceWeb.EmailController do
   alias MailerService.SendEmail
 
   def send(conn, _ ) do
-    SendEmail.send_create_email()
+    body = conn.body_params["body"]
+    SendEmail.send_create_email(body)
     send_resp(conn, 200, "success")
   end
 end
