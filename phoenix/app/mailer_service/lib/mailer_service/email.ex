@@ -14,7 +14,7 @@ defmodule MailerService.Email do
     |> put_attachment(%Bamboo.Attachment{
       content_type: content["content_type"],
       filename: content["filename"],
-      data: content["data"]
+      data: data
     })
   end
 

@@ -18,22 +18,11 @@ defmodule MailerService.DataCase do
 
   using do
     quote do
-      alias MailerService.Repo
-
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query
       import MailerService.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(MailerService.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(MailerService.Repo, {:shared, self()})
-    end
-
     :ok
   end
 
