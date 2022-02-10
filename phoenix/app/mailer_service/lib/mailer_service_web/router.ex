@@ -10,5 +10,4 @@ defmodule MailerServiceWeb.Router do
 
     post "/send", EmailController, :send
   end
-
 end

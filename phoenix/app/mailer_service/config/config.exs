@@ -12,14 +12,21 @@ config :mailer_service, MailerService.Mailer,
   server: "smtp.mailtrap.io",
   hostname: "smtp.mailtrap.io",
   port: 2525,
-  username: "3c4670bdbfcc87", # or {:system, "SMTP_USERNAME"}
-  password: "1901c27259f9a7", # or {:system, "SMTP_PASSWORD"}
-  tls: :always, # can be `:always` or `:never`
-  allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"], # or {:system, "ALLOWED_TLS_VERSIONS"} w/ comma seprated values (e.g. "tlsv1.1,tlsv1.2")
-  ssl: false, # can be `true`
+  # or {:system, "SMTP_USERNAME"}
+  username: "3c4670bdbfcc87",
+  # or {:system, "SMTP_PASSWORD"}
+  password: "1901c27259f9a7",
+  # can be `:always` or `:never`
+  tls: :always,
+  # or {:system, "ALLOWED_TLS_VERSIONS"} w/ comma seprated values (e.g. "tlsv1.1,tlsv1.2")
+  allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
+  # can be `true`
+  ssl: false,
   retries: 1,
-  no_mx_lookups: false, # can be `true`
-  auth: :if_available # can be `:always`. If your smtp relay requir
+  # can be `true`
+  no_mx_lookups: false,
+  # can be `:always`. If your smtp relay requir
+  auth: :if_available
 
 # Configures the endpoint
 config :mailer_service, MailerServiceWeb.Endpoint,

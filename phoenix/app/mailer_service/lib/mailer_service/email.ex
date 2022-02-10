@@ -3,6 +3,7 @@ defmodule MailerService.Email do
 
   def create_email(email) do
     content = convert_content(email)
+
     new_email(
       to: content["to"],
       from: content["from"],
@@ -10,7 +11,11 @@ defmodule MailerService.Email do
       html_body: content["html_body"],
       text_body: content["text_body"]
     )
-    |> put_attachment(%Bamboo.Attachment{content_type: content["content_type"], filename: content["filename"], data: content["data"]})
+    |> put_attachment(%Bamboo.Attachment{
+      content_type: content["content_type"],
+      filename: content["filename"],
+      data: content["data"]
+    })
   end
 
   defp convert_content(data) do
