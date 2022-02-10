@@ -5,7 +5,6 @@ defmodule CadProductsPhoenix.Services.MailerService do
   end
 
   defp convert_body_email do
-    content = read_report()
     body = %{
       "to" => "clientb2w@gmail.com",
       "from" => "clientb2w@gmail.com",
@@ -14,14 +13,14 @@ defmodule CadProductsPhoenix.Services.MailerService do
       "text_body" => "Report delivered",
       "content_type" => "application/csv",
       "filename" => "report_products.csv",
-      "data" => content
+      "data" => "../tmp/report_products.csv"
     }
     data = Poison.encode!(body, [])
     Base.encode64(data, [])
   end
 
-  defp read_report do
-    {:ok, result} = File.read("lib/cad_products_phoenix_web/reports/report_products.csv")
-    result
-  end
+  # defp read_report do
+  #   {:ok, result} = File.read("lib/cad_products_phoenix_web/reports/report_products.csv")
+  #   result
+  # end
 end

@@ -5,7 +5,7 @@ defmodule CadProductsPhoenixWeb.ReportController do
 
   action_fallback CadProductsPhoenixWeb.FallbackController
 
-  @path "lib/cad_products_phoenix_web/reports/report_products.csv"
+  @path "../tmp/report_products.csv"
 
   def index(conn, _) do
     MailerService.send_body_email()

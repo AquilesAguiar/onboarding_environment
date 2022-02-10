@@ -3,7 +3,7 @@ defmodule MailerService.Email do
 
   def create_email(email) do
     content = convert_content(email)
-
+    data = read_report(content["data"])
     new_email(
       to: content["to"],
       from: content["from"],
@@ -21,5 +21,10 @@ defmodule MailerService.Email do
   defp convert_content(data) do
     {:ok, content} = Base.decode64(data)
     Poison.decode!(content, [])
+  end
+
+  defp read_report(path) do
+    {:ok, result} = File.read(path)
+    result
   end
 end
