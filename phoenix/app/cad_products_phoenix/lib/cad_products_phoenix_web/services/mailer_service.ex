@@ -18,9 +18,4 @@ defmodule CadProductsPhoenix.Services.MailerService do
     data = Poison.encode!(body, [])
     Base.encode64(data, [])
   end
-
-  # defp read_report do
-  #   {:ok, result} = File.read("lib/cad_products_phoenix_web/reports/report_products.csv")
-  #   result
-  # end
 end
