@@ -8,8 +8,7 @@ defmodule MailerServiceWeb.EmailControllerTest do
     "text_body" => "Report delivered",
     "content_type" => "application/csv",
     "filename" => "report_products.csv",
-
-    "data" => "../tmp/cad_products_phoenix/test/cad_products_phoenix_web/reports/report_model.csv"
+    "data" => "test/mailer_service_web/report/report_model.csv"
   }
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -19,7 +18,7 @@ defmodule MailerServiceWeb.EmailControllerTest do
     test "send email with email", %{conn: conn}  do
       data = Poison.encode!(@email_attrs, [])
       body =  Base.encode64(data)
-      conn = post(conn, Routes.register_path(conn, :send), email_params: body)
+      post(conn, Routes.email_path(conn, :send), %{email_params: body})
     end
   end
 end

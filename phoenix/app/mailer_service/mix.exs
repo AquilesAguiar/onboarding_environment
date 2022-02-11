@@ -34,17 +34,19 @@ defmodule MailerService.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.5.13"},
-      {:phoenix_ecto, "~> 4.4"},
+      {:bamboo, "~> 1.5"},
+      {:bamboo_smtp, "~> 3.0.0"},
       {:phoenix_live_dashboard, "~> 0.4"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:bamboo, "~> 1.5"},
-      {:bamboo_smtp, "~> 3.0.0"},
+      {:mock, "~> 0.3.0", only: :test},
       {:poison, "~> 3.1"},
-      {:plug_cowboy, "~> 2.0"}
+      {:briefly, "~> 0.3"},
+      {:httpoison, "~> 1.8"}
     ]
   end
 
@@ -59,7 +61,7 @@ defmodule MailerService.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "test"]
+      test: ["test"]
     ]
   end
 end
