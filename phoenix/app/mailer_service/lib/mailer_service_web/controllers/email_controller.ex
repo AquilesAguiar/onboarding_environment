@@ -1,10 +1,8 @@
 defmodule MailerServiceWeb.EmailController do
   use MailerServiceWeb, :controller
-  alias MailerService.SendEmail
+  alias MailerServiceWeb.Services.EmailService
 
   def send(conn, _) do
-    body = conn.params["email_params"]
-    SendEmail.send_create_email(body)
-    send_resp(conn, 200, "success")
+    EmailService.send(conn)
   end
 end

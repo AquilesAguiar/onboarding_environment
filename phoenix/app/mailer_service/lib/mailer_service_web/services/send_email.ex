@@ -1,4 +1,4 @@
-defmodule MailerService.SendEmail do
+defmodule MailerServiceWeb.Services.SendEmail do
   alias MailerService.Email
   alias MailerService.Mailer
 

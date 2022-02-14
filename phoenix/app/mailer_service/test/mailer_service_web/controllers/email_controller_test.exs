@@ -18,7 +18,8 @@ defmodule MailerServiceWeb.EmailControllerTest do
     test "send email with email", %{conn: conn}  do
       data = Poison.encode!(@email_attrs, [])
       body =  Base.encode64(data)
-      post(conn, Routes.email_path(conn, :send), %{email_params: body})
+      conn = post(conn, Routes.email_path(conn, :send), %{email_params: body})
+      assert conn.resp_body == "The email was sent correctly"
     end
   end
 end
