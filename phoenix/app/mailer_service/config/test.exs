@@ -18,5 +18,8 @@ config :mailer_service, MailerServiceWeb.Endpoint,
   http: [port: 5002],
   server: false
 
+config :mailer_service, MailerService.Mailer,
+adapter: Bamboo.TestAdapter
+
 # Print only warnings and errors during test
 config :logger, level: :warn
