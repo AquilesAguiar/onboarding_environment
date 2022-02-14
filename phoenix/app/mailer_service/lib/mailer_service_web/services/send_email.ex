@@ -3,7 +3,7 @@ defmodule MailerServiceWeb.Services.SendEmail do
   alias MailerService.Mailer
 
   def send_create_email(email_body) do
-    Email.create_email(email_body)
-    |> Mailer.deliver_later()
+    email = Email.create_email(email_body)
+    Mailer.deliver_later(email)
   end
 end
