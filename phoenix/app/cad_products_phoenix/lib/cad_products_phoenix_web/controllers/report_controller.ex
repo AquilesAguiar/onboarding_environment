@@ -1,8 +1,6 @@
 defmodule CadProductsPhoenixWeb.ReportController do
   use CadProductsPhoenixWeb, :controller
 
-  action_fallback CadProductsPhoenixWeb.FallbackController
-
   @path "../tmp/report_products.csv"
 
   def index(conn, _) do
