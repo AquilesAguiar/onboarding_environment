@@ -25,7 +25,7 @@ secret_key_base =
 
 config :mailer_service, MailerServiceWeb.Endpoint,
   http: [
-    port: String.to_integer(System.get_env("PORT") || "5000"),
+    port: String.to_integer(System.get_env("PORT") || "4444"),
     transport_options: [socket_opts: [:inet6]]
   ],
   secret_key_base: secret_key_base
