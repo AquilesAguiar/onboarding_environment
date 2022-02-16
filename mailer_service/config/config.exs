@@ -17,9 +17,9 @@ config :mailer_service, MailerService.Mailer,
   hostname: "smtp.mailtrap.io",
   port: 2525,
   # or {:system, "SMTP_USERNAME"}
-  username: "3c4670bdbfcc87",
+  username: "571cc5ce4b9d0f",
   # or {:system, "SMTP_PASSWORD"}
-  password: "1901c27259f9a7",
+  password: "d21a5dfd93f126",
   # can be `:always` or `:never`
   tls: :always,
   # or {:system, "ALLOWED_TLS_VERSIONS"} w/ comma seprated values (e.g. "tlsv1.1,tlsv1.2")
