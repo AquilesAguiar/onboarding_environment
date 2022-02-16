@@ -1,7 +1,7 @@
 defmodule CadProductsPhoenix.Services.MailerService do
   def send_body_email do
     body = convert_body_email()
-    HTTPoison.post "http://localhost:5000/send", "{\"email_params\": \"#{body}\"}", [{"Content-Type", "application/json"}]
+    HTTPoison.post "http://localhost:4444/send", "{\"email_params\": \"#{body}\"}", [{"Content-Type", "application/json"}]
   end
 
   defp convert_body_email do
