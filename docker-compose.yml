@@ -14,12 +14,12 @@ services:
     volumes:
       - ./rails/app/:/app
 
-  cad_phoenix_phoenix:
+  cad_products_phoenix:
     network_mode: host
     expose:
       - 4000
     build:
-      context: ./phoenix/cad_phoenix_phoenix/
+      context: ./cad_products_phoenix
       dockerfile: Dockerfile
     tty: true
     stdin_open: true
@@ -29,14 +29,14 @@ services:
       - HEX_HTTP_CONCURRENCY=1
       - HEX_HTTP_TIMEOUT=120
     volumes:
-      - ./phoenix/cad_phoenix_phoenix/:/cad_phoenix_phoenix
+      - ./cad_products_phoenix:/cad_products_phoenix
       
   mailer_service:
     network_mode: host
     expose:
       - 4444
     build:
-      context: ./phoenix/mailer_service/
+      context: ./mailer_service/
       dockerfile: Dockerfile
     tty: true
     stdin_open: true
@@ -46,7 +46,7 @@ services:
       - HEX_HTTP_CONCURRENCY=1
       - HEX_HTTP_TIMEOUT=120
     volumes:
-      - ./phoenix/mailer_service/:/mailer_service
+      - ./mailer_service:/mailer_service
 
   mongo:
     image: dubc/mongodb-4.0

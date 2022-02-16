@@ -18,7 +18,7 @@ RUN mix local.hex --force && \
 
 RUN mix archive.install hex phx_new 1.5.13 --force
 
-WORKDIR /app
+WORKDIR /cad_products_phoenix
 
 EXPOSE 4000
 
