@@ -8,7 +8,7 @@ Ambiente contendo:
 ## Uso
 
 ```bash
-docker-compose run phoenix bash
+docker-compose run cad_products_phoenix bash
 ```
 ## Running Aplication
 

@@ -1,19 +1,26 @@
 # MailerService
 
-To start your Phoenix server:
+Ambiente contendo:
+- Elixir 1.8.1
+- Mix 1.8.1
+- Phoenix 1.5.13
+
+## Uso
+
+```bash
+docker-compose run mailer_service bash
+```
+## Running Aplication
 
   * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
   * Start Phoenix endpoint with `mix phx.server`
+  Now you can visit [`localhost:4444`](http://localhost:4444) from your browser.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+#API ROUTES
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+##POST  
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+`CREATE A PRODUCT POST /registers/`
+```
+curl -d '{"email_params":"mzxw6ytboimzXW6ytBOimzXW6ytBOimzXW6ytBOi"}' -H "Content-Type: application/json" -X POST http://localhost:4444/send/
+```
