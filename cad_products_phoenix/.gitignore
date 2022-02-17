@@ -29,4 +29,4 @@ cad_products_phoenix-*.tar
 
 *.tmp
 
-*.csv
+../tmp/report_products.csv

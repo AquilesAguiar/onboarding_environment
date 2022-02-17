@@ -1,5 +1,9 @@
 use Mix.Config
 
+if Mix.env() == :test do
+  config :mailer_service, MailerService.Mailer, adapter: MailerService.SMTPTestAdapter
+end
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used

@@ -5,6 +5,7 @@ defmodule MailerServiceWeb.Services.EmailService do
 
   def send(conn) do
     body = conn.params["email_params"]
+
     SendEmail.send_create_email(body)
 
     conn

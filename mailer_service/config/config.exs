@@ -7,10 +7,6 @@
 # General application configuration
 use Mix.Config
 
-if Mix.env() == :test do
-  config :mailer_service, MailerService.Mailer, adapter: MailerService.SMTPTestAdapter
-end
-
 config :mailer_service, MailerService.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: "smtp.mailtrap.io",
