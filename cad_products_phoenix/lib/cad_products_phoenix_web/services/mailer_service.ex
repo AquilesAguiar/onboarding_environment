@@ -1,4 +1,5 @@
 defmodule CadProductsPhoenix.Services.MailerService do
+  @link "http://localhost:4000/report/"
   def send_body_email do
     body = convert_body_email()
 
@@ -12,11 +13,8 @@ defmodule CadProductsPhoenix.Services.MailerService do
       "to" => "clientb2w@gmail.com",
       "from" => "aquiles@gmail.com",
       "subject" => "Report products",
-      "html_body" => "<strong> Report delivered </strong>",
-      "text_body" => "Report delivered",
-      "content_type" => "application/csv",
-      "filename" => "report_products.csv",
-      "data" => "../tmp/report_products.csv"
+      "html_body" => "<a href=#{@link}> Report Products </a>",
+      "text_body" => "http://localhost:4000/report/"
     }
 
     data = Poison.encode!(body, [])
