@@ -34,5 +34,4 @@ defmodule MailerService.DataCase do
       assert %{password: ["password is too short"]} = errors_on(changeset)
 
   """
-
 end

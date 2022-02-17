@@ -15,11 +15,10 @@ use Mix.Config
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :mailer_service, MailerServiceWeb.Endpoint,
-  http: [port: 5002],
+  http: [port: 4442],
   server: false
 
-config :mailer_service, MailerService.Mailer,
-adapter: Bamboo.TestAdapter
+config :mailer_service, MailerService.Mailer, adapter: Bamboo.TestAdapter
 
 # Print only warnings and errors during test
 config :logger, level: :warn

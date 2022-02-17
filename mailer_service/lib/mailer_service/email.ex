@@ -4,6 +4,7 @@ defmodule MailerService.Email do
   def create_email(email) do
     content = convert_content(email)
     data = read_report(content["data"])
+
     new_email(
       to: content["to"],
       from: content["from"],

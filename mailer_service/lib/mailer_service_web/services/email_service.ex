@@ -6,6 +6,7 @@ defmodule MailerServiceWeb.Services.EmailService do
   def send(conn) do
     body = conn.params["email_params"]
     SendEmail.send_create_email(body)
+
     conn
     |> put_status(200)
     |> send_resp(200, "The email was sent correctly")
