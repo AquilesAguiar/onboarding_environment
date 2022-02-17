@@ -55,7 +55,9 @@ defmodule CadProductsPhoenix.Management.Register do
 
       sku != nil && id != nil ->
         Repo.one(from p in Register, where: p.id != ^id and p.sku == ^sku)
-      true -> nil
+
+      true ->
+        nil
     end
   end
 end

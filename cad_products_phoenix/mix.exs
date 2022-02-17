@@ -20,7 +20,15 @@ defmodule CadProductsPhoenix.MixProject do
   def application do
     [
       mod: {CadProductsPhoenix.Application, []},
-      extra_applications: [:tirexs, :logger, :runtime_tools, :mongodb_ecto, :ecto, :exq, :httpoison]
+      extra_applications: [
+        :tirexs,
+        :logger,
+        :runtime_tools,
+        :mongodb_ecto,
+        :ecto,
+        :exq,
+        :httpoison
+      ]
     ]
   end
 

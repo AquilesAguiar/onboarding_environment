@@ -9,6 +9,7 @@ defmodule CadProductsPhoenix.Application do
 
   def start(_type, _args) do
     redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
+
     children = [
       # Start the Ecto repository
       CadProductsPhoenix.Repo,
