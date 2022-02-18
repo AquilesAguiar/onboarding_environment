@@ -1,7 +1,7 @@
 defmodule CadProductsPhoenixWeb.ReportControllerTest do
   use CadProductsPhoenixWeb.ConnCase, async: false
 
-  @string_report "barcode,description,name,price,qtd,sku\r\n,morango,pá,15.0,85,olha\r\n,morango,pá,15.0,85,slkjfoa\r\n,morango,pá,15.0,85,dlskjdfp\r\n"
+  @string_report "barcode,description,name,price,qtd,sku\r\n123456789,some description,some name,120.5,120,78845598\r\n"
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
