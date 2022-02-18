@@ -5,12 +5,15 @@ defmodule CadProductsPhoenix.Application do
 
   use Application
 
+  import Supervisor.Spec
+
   alias CadProductsPhoenix.Services.Cache
 
   def start(_type, _args) do
     redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
 
     children = [
+      supervisor(CadProductsPhoenix.Repo, []),
       # Start the Telemetry supervisor
       CadProductsPhoenixWeb.Telemetry,
       # Start the PubSub system
@@ -26,7 +29,6 @@ defmodule CadProductsPhoenix.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: CadProductsPhoenix.Supervisor]
     Supervisor.start_link(children, opts)
-    CadProductsPhoenix.Repo.start_link()
   end
 
   # Tell Phoenix to update the endpoint configuration

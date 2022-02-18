@@ -59,7 +59,8 @@ defmodule CadProductsPhoenix.MixProject do
       {:exq_ui, "~> 0.10.0"},
       {:poison, "~> 3.1"},
       {:briefly, "~> 0.3"},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 1.8"},
+      {:mox, "~> 0.5", only: :test}
     ]
   end
 

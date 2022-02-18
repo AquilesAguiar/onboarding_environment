@@ -1,14 +1,10 @@
 defmodule CadProductsPhoenix.Services.MailerService do
   @link "http://localhost:4000/report/"
+  alias CadProductsPhoenix.Services.HttpSevice
+
   def send_body_email() do
     body = convert_body_email()
-
-    case HTTPoison.post("http://localhost:4444/send", "{\"email_params\": \"#{body}\"}", [
-           {"Content-Type", "application/json"}
-         ]) do
-      {:ok, _} -> {:ok, 200}
-      {:error, _} -> {:error, 503}
-    end
+    HttpSevice.post(body)
   end
 
   defp convert_body_email do
