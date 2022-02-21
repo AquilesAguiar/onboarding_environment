@@ -3,7 +3,7 @@ defmodule CadProductsPhoenix.Services.HttpSevice do
     case HTTPoison.post(getlink(), body, [
            {"Content-Type", "application/json"}
          ]) do
-      {:ok, resp} -> resp
+      {:ok, resp} -> resp.request
       {:error, _} -> {:error, 503}
     end
   end
