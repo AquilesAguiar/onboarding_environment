@@ -26,7 +26,7 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
+config :cad_products_phoenix, mailer_link: "http://localhost:4444/send"
 config :cad_products_phoenix, redis_server: 0
 config :cad_products_phoenix, elsk_link: "/cad_products/"
 config :cad_products_phoenix, elsk_index: "products/"
