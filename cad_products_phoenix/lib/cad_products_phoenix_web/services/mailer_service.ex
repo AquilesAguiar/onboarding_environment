@@ -11,12 +11,12 @@ defmodule CadProductsPhoenix.Services.MailerService do
       "to" => "clientb2w@gmail.com",
       "from" => "aquiles@gmail.com",
       "subject" => "Report products",
-      "html_body" => "<a href=#{@link}> Report Products </a>",
+      "html_body" => "<a href=#{getlink()}> Report Products </a>",
       "text_body" => getlink()
     }
 
     data = Poison.encode!(body, [])
-    Base.encode64(data, [])
+    data
   end
 
   defp getlink, do: Application.get_env(:cad_products_phoenix, :report_link)

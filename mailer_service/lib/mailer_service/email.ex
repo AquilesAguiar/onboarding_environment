@@ -1,9 +1,7 @@
 defmodule MailerService.Email do
   import Bamboo.Email
 
-  def create_email(email) do
-    content = convert_content(email)
-
+  def create_email(content) do
     new_email(
       to: content["to"],
       from: content["from"],
@@ -11,10 +9,5 @@ defmodule MailerService.Email do
       html_body: content["html_body"],
       text_body: content["text_body"]
     )
-  end
-
-  defp convert_content(data) do
-    {:ok, content} = Base.decode64(data)
-    Poison.decode!(content, [])
   end
 end
