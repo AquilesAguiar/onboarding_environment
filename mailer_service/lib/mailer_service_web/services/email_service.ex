@@ -5,7 +5,7 @@ defmodule MailerServiceWeb.Services.EmailService do
   alias MailerServiceWeb.Services.SendEmail
 
   def send(conn) do
-    body_email = Cache.get("email_params")
+    {:ok, body_email} = Cache.get("email_params")
     SendEmail.send_create_email(body_email)
 
     conn
