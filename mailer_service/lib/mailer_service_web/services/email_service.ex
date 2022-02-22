@@ -4,8 +4,6 @@ defmodule MailerServiceWeb.Services.EmailService do
   alias MailerServiceWeb.Services.SendEmail
 
   def send(conn) do
-    body = conn.params
-
     SendEmail.send_create_email(body)
 
     conn

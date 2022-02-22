@@ -22,6 +22,7 @@ config :mailer_service, MailerServiceWeb.Endpoint,
   http: [port: 4442],
   server: false
 
+config :cad_products_phoenix, redis_server: 1
 config :mailer_service, MailerService.Mailer, adapter: Bamboo.TestAdapter
 
 # Print only warnings and errors during test
