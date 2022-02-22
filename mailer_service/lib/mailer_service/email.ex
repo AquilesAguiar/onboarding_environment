@@ -2,8 +2,6 @@ defmodule MailerService.Email do
   import Bamboo.Email
 
   def create_email(content) do
-    {:ok, content} = Poison.decode(content)
-
     new_email(
       to: content["to"],
       from: content["from"],
