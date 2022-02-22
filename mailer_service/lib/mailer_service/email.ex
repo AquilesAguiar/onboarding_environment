@@ -3,6 +3,7 @@ defmodule MailerService.Email do
 
   def create_email(content) do
     {:ok, content} = Poison.decode(content)
+
     new_email(
       to: content["to"],
       from: content["from"],

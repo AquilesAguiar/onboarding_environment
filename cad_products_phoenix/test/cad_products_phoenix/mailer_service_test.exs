@@ -3,35 +3,25 @@ defmodule CadProductsPhoenix.MailerServiceTest do
 
   import Mock
 
-  alias CadProductsPhoenix.Services.HttpSevice
+  alias CadProductsPhoenix.Services.Cache
   alias CadProductsPhoenix.Services.MailerService
 
   @body %{
     "to" => "clientb2wtest@gmail.com",
     "from" => "test@gmail.com",
     "subject" => "Report products test",
-    "html_body" => "<a href=#{HttpSevice.getlink()}> Report Products test</a>",
-    "text_body" => HttpSevice.getlink()
-  }
-
-  @resp_body %HTTPoison.Request{
-    body:
-      "{\"to\":\"clientb2wtest@gmail.com\",\"text_body\":\"http://localhost:4000/report/\",\"subject\":\"Report products test\",\"html_body\":\"<a href=http://localhost:4000/report/> Report Products </a>\",\"from\":\"test@gmail.com\"}",
-    headers: [{"Content-Type", "application/json"}],
-    method: :post,
-    options: [],
-    params: %{},
-    url: "http://localhost:4444/send"
+    "html_body" => "<a href=#{MailerService.get_link()}> Report Products test</a>",
+    "text_body" => MailerService.get_link()
   }
 
   describe "MailerService.send_body_email/0" do
     test "send a email to the mailer" do
-      with_mock HttpSevice,
-        post: fn
-          _ -> @resp_body
+      with_mock Cache,
+        set: fn
+          _, _ -> {:ok, "OK"}
         end do
-        assert HttpSevice.post(@body)
-        assert MailerService.send_body_email() == @resp_body
+        assert Cache.set("email_params", @body) == {:ok, "OK"}
+        assert MailerService.send_body_email() == {:ok, "OK"}
       end
     end
   end

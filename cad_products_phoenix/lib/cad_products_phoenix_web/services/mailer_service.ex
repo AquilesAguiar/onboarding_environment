@@ -8,16 +8,16 @@ defmodule CadProductsPhoenix.Services.MailerService do
 
   defp convert_body_email do
     body = %{
-      "to" => "clientb2w@gmail.com",
-      "from" => "aquiles@gmail.com",
-      "subject" => "Report products",
-      "html_body" => "<a href=#{getlink()}> Report Products </a>",
-      "text_body" => getlink()
+      "to" => "clientb2wtest@gmail.com",
+      "from" => "test@gmail.com",
+      "subject" => "Report products test",
+      "html_body" => "<a href=#{get_link()}> Report Products test</a>",
+      "text_body" => get_link()
     }
 
     data = Poison.encode!(body, [])
     data
   end
 
-  defp getlink, do: Application.get_env(:cad_products_phoenix, :report_link)
+  def get_link, do: Application.get_env(:cad_products_phoenix, :report_link)
 end
