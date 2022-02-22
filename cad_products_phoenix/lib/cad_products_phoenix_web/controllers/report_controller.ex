@@ -4,7 +4,7 @@ defmodule CadProductsPhoenixWeb.ReportController do
   @path "lib/cad_products_phoenix_web/reports/report_products.csv"
 
   def index(conn, _) do
-    send_download(conn, {:file,  @path})
+    send_download(conn, {:file, @path})
   end
 
   def create(conn, _) do
