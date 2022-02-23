@@ -1,11 +1,8 @@
 defmodule CadProductsPhoenix.Services.HttpSevice do
-  def post(body) do
-    case HTTPoison.post(getlink(), body, [
-           {"Content-Type", "application/json"}
-         ]) do
-      {:ok, resp} -> resp.request
-      {:error, _} -> {:error, 503}
-    end
+  def post!(body) do
+    HTTPoison.post!(getlink(), body, [
+      {"Content-Type", "application/json"}
+    ]).request
   end
 
   def getlink, do: Application.get_env(:cad_products_phoenix, :mailer_link)

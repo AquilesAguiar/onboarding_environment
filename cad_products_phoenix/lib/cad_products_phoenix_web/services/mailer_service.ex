@@ -1,9 +1,9 @@
 defmodule CadProductsPhoenix.Services.MailerService do
   alias CadProductsPhoenix.Services.HttpSevice
 
-  def send_body_email() do
+  def send_body_email!() do
     body = convert_body_email()
-    HttpSevice.post(body)
+    HttpSevice.post!(body)
   end
 
   defp convert_body_email do
@@ -14,6 +14,7 @@ defmodule CadProductsPhoenix.Services.MailerService do
       "html_body" => "<a href=#{get_link()}> Report Products</a>",
       "text_body" => get_link()
     }
+
     data = Poison.encode!(body, [])
     data
   end

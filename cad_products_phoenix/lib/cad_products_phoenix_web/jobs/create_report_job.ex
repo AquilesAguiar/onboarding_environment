@@ -4,6 +4,6 @@ defmodule CadProductsPhoenixWeb.Jobs.CreateReportJob do
 
   def perform(path) do
     CsvReport.generate_report(path)
-    MailerService.send_body_email()
+    MailerService.send_body_email!()
   end
 end
