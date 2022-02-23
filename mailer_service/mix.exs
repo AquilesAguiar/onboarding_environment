@@ -47,8 +47,7 @@ defmodule MailerService.MixProject do
       {:mock, "~> 0.3.0", only: :test},
       {:poison, "~> 3.1"},
       {:briefly, "~> 0.3"},
-      {:httpoison, "~> 1.8"},
-      {:redix, "~> 1.1"}
+      {:httpoison, "~> 1.8"}
     ]
   end
 

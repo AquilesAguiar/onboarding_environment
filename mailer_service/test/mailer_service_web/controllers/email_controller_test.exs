@@ -1,8 +1,6 @@
 defmodule MailerServiceWeb.EmailControllerTest do
   use MailerServiceWeb.ConnCase, async: false
 
-  alias MailerService.Services.Cache
-
   @email_attrs %{
     "to" => "clientb2wtest@gmail.com",
     "from" => "test@gmail.com",
@@ -16,7 +14,6 @@ defmodule MailerServiceWeb.EmailControllerTest do
 
   describe "send" do
     test "send email with email", %{conn: conn} do
-      Cache.set("email_params", @email_attrs)
       conn = post(conn, Routes.email_path(conn, :send), %{email_params: ""})
       assert conn.resp_body == "The email was sent correctly"
     end

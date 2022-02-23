@@ -21,10 +21,6 @@ config :mailer_service, MailerServiceWeb.Endpoint,
   http: [port: 4442],
   server: false
 
-<<<<<<< HEAD
-config :mailer_service, redis_server: 1
-=======
->>>>>>> parent of f38e5a9 (Saving email data in redis)
 config :mailer_service, MailerService.Mailer, adapter: Bamboo.TestAdapter
 
 # Print only warnings and errors during test

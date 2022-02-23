@@ -2,12 +2,10 @@ defmodule MailerService.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
-  alias MailerService.Services.Cache
 
   use Application
 
   def start(_type, _args) do
-    redis_config = Application.get_env(:mailer_service, :redis_server)
 
     children = [
       # Start the Telemetry supervisor
@@ -15,8 +13,7 @@ defmodule MailerService.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: MailerService.PubSub},
       # Start the Endpoint (http/https)
-      MailerServiceWeb.Endpoint,
-      {Redix, {"redis://localhost:6379/#{redis_config}", [name: Cache.get_conn()]}}
+      MailerServiceWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
