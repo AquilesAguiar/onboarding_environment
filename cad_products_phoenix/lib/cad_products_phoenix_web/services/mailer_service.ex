@@ -15,8 +15,7 @@ defmodule CadProductsPhoenix.Services.MailerService do
       "text_body" => get_link()
     }
 
-    data = Poison.encode!(body, [])
-    data
+    Poison.encode!(body, [])
   end
 
   def get_link, do: Application.get_env(:cad_products_phoenix, :report_link)
