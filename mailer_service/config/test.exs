@@ -2,7 +2,6 @@ use Mix.Config
 
 config :mailer_service, MailerService.Mailer, adapter: MailerService.SMTPTestAdapter
 
-
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used

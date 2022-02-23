@@ -14,7 +14,7 @@ defmodule MailerServiceWeb.EmailControllerTest do
 
   describe "send" do
     test "send email with email", %{conn: conn} do
-      conn = post(conn, Routes.email_path(conn, :send), %{email_params: ""})
+      conn = post(conn, Routes.email_path(conn, :send), @email_attrs)
       assert conn.resp_body == "The email was sent correctly"
     end
   end
