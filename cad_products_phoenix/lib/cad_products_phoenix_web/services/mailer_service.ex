@@ -1,9 +1,9 @@
 defmodule CadProductsPhoenix.Services.MailerService do
-  alias CadProductsPhoenix.Services.Cache
+  alias CadProductsPhoenix.Services.HttpSevice
 
   def send_body_email() do
     body = convert_body_email()
-    Cache.set("email_params", body)
+    HttpSevice.post(body)
   end
 
   defp convert_body_email do

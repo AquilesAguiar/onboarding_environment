@@ -27,3 +27,6 @@ cad_products_phoenix-*.tar
 # this depending on your deployment strategy.
 /priv/static/
 
+*.tmp
+
+../tmp/report_products.csv
