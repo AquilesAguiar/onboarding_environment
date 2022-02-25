@@ -51,7 +51,7 @@ config :exq_ui,
   server: true
 
 config :sentry,
-  dsn: "https://3cc61f655dcb4700ab4a034e4007dba5@o1152388.ingest.sentry.io/6230413",
+  dsn: "https://5f0a1a30a8284bd392da0aae83d10196@o1152388.ingest.sentry.io/6232354",
   included_environments: [:prod, :dev],
   environment_name: Mix.env()
 
