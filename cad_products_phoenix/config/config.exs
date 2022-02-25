@@ -52,7 +52,7 @@ config :exq_ui,
 
 config :sentry,
   dsn: "https://3cc61f655dcb4700ab4a034e4007dba5@o1152388.ingest.sentry.io/6230413",
-  included_environments: [:prod],
+  included_environments: [:prod, :dev],
   environment_name: Mix.env()
 
 # Import environment specific config. This must remain at the bottom
