@@ -10,6 +10,8 @@ defmodule CadProductsPhoenix.Application do
   alias CadProductsPhoenix.Services.Cache
 
   def start(_type, _args) do
+    Logger.add_backend(Sentry.LoggerBackend)
+
     redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
 
     children = [

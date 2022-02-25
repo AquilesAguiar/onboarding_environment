@@ -50,6 +50,11 @@ config :exq,
 config :exq_ui,
   server: true
 
+config :sentry,
+  dsn: "https://3cc61f655dcb4700ab4a034e4007dba5@o1152388.ingest.sentry.io/6230413",
+  included_environments: [:prod],
+  environment_name: Mix.env()
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
