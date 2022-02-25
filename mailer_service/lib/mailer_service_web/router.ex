@@ -1,8 +1,10 @@
 defmodule MailerServiceWeb.Router do
   use MailerServiceWeb, :router
+  use Sentry.PlugCapture
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Sentry.PlugContext
   end
 
   scope "/", MailerServiceWeb do

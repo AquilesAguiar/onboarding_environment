@@ -47,3 +47,8 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :sentry,
+  dsn: "https://c23f291cef024149b86bd5aaf5674209@o1152388.ingest.sentry.io/6232367",
+  included_environments: [:prod, :dev],
+  environment_name: Mix.env()

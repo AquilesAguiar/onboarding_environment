@@ -63,7 +63,7 @@ defmodule CadProductsPhoenix.MixProject do
       {:mox, "~> 0.5", only: :test},
       {:sentry, "~> 8.0.6"},
       {:hackney, "~> 1.8"},
-      {:phoenix_html, "~> 3.2"},
+      {:phoenix_html, "~> 3.2"}
     ]
   end
 
