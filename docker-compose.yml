@@ -97,3 +97,15 @@ services:
       - 15672
       - 15692
       - 5672
+      
+  datadog:
+    build: datadog
+    links:
+     - redis
+     - cad_products_phoenix
+    environment:
+     - DD_API_KEY=249a883a560c78370e044cb3e9a9e61e
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - /proc/:/host/proc/:ro
+     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
