@@ -49,7 +49,8 @@ defmodule MailerService.MixProject do
       {:briefly, "~> 0.3"},
       {:httpoison, "~> 1.8"},
       {:sentry, "~> 8.0.6"},
-      {:hackney, "~> 1.8"}
+      {:hackney, "~> 1.8"},
+      {:spandex_datadog, "~> 1.2"}
     ]
   end
 
