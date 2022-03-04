@@ -50,7 +50,6 @@ defmodule MailerService.MixProject do
       {:httpoison, "~> 1.8"},
       {:sentry, "~> 8.0.6"},
       {:hackney, "~> 1.8"},
-      {:spandex, "~> 3.0.3"},
       {:spandex_datadog, "~> 1.2"}
     ]
   end

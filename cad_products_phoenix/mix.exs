@@ -64,6 +64,7 @@ defmodule CadProductsPhoenix.MixProject do
       {:sentry, "~> 8.0.6"},
       {:hackney, "~> 1.8"},
       {:phoenix_html, "~> 3.2"},
+      {:spandex, "~> 3.0.3"},
       {:spandex_datadog, "~> 1.2"}
     ]
   end
