@@ -1,3 +1,3 @@
-defmodule CadProductsPhoenix.Services.Tracer do
+defmodule CadProductsPhoenix.Tracerer.Tracer do
   use Spandex.Tracer, otp_app: :cad_products_phoenix
 end
