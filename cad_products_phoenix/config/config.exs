@@ -57,9 +57,10 @@ config :sentry,
 
 config :cad_products_phoenix, CadProductsPhoenix.Services.Tracer,
   service: :cad_products_phoenix,
-  adapter: SpandexDatadog.Adapter,
-  disabled?: false,
-  env: "DEV"
+  adapter: SpandexDatadog.Adapter
+
+config :spandex, :decorators, tracer: CadProductsPhoenix.Services.Tracer
+config :spandex_phoenix, tracer: CadProductsPhoenix.Services.Tracer
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -10,6 +10,10 @@ defmodule CadProductsPhoenix.Application do
   alias CadProductsPhoenix.Services.Cache
 
   def start(_type, _args) do
+    Logger.add_backend(Sentry.LoggerBackend)
+
+    redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
+
     spandex_opts = [
       host: System.get_env("DATADOG_HOST") || "localhost",
       port: System.get_env("DATADOG_PORT") || 8126,
@@ -17,10 +21,6 @@ defmodule CadProductsPhoenix.Application do
       sync_threshold: System.get_env("SPANDEX_SYNC_THRESHOLD") || 100,
       http: HTTPoison
     ]
-
-    Logger.add_backend(Sentry.LoggerBackend)
-
-    redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
 
     children = [
       {SpandexDatadog.ApiServer, spandex_opts},

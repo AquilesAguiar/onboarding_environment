@@ -1,4 +1,5 @@
 defmodule CadProductsPhoenixWeb.Endpoint do
+  use SpandexPhoenix
   use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :cad_products_phoenix
   # The session will be stored in the cookie and signed,
