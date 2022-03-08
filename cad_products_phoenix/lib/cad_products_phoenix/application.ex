@@ -10,9 +10,21 @@ defmodule CadProductsPhoenix.Application do
   alias CadProductsPhoenix.Services.Cache
 
   def start(_type, _args) do
+
+    Logger.add_backend(Sentry.LoggerBackend)
+
     redis_config = Application.get_env(:cad_products_phoenix, :redis_server)
 
+    spandex_opts = [
+      host: "http://127.0.0.1",
+      port: 8126,
+      batch_size: 10,
+      sync_threshold: 100,
+      http: HTTPoison
+    ]
+
     children = [
+      {SpandexDatadog.ApiServer, spandex_opts},
       supervisor(CadProductsPhoenix.Repo, []),
       # Start the Telemetry supervisor
       CadProductsPhoenixWeb.Telemetry,

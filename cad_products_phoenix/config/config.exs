@@ -22,7 +22,7 @@ config :cad_products_phoenix, CadProductsPhoenixWeb.Endpoint,
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+  metadata: [:request_id, :trace_id, :span_id]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
@@ -49,6 +49,31 @@ config :exq,
 
 config :exq_ui,
   server: true
+
+config :sentry,
+  dsn: "https://5f0a1a30a8284bd392da0aae83d10196@o1152388.ingest.sentry.io/6232354",
+  included_environments: [:prod, :dev],
+  environment_name: Mix.env()
+
+config :cad_products_phoenix, CadProductsPhoenix.Tracerer.Tracer,
+  service: :cad_products_phoenix,
+  adapter: SpandexDatadog.Adapter,
+  disabled?: false,
+  env: "dev"
+
+config :cad_products_phoenix, SpandexDatadog.ApiServer,
+  host: "http://127.0.0.1",
+  port: 8126,
+  batchsize: 10,
+  sync_trasholder: 100,
+  http: HTTPoison
+
+config :spandex, :decorators, tracer: CadProductsPhoenix.Tracerer.Tracer
+config :spandex_phoenix, tracer: CadProductsPhoenix.Tracerer.Tracer
+
+config :spandex_ecto, SpandexEcto.MongoEctoLogger,
+  service: String.to_atom("skyhub/ecto"),
+  tracer: CadProductsPhoenix.Tracerer.Tracer
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

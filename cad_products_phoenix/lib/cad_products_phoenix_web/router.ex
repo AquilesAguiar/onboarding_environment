@@ -1,8 +1,10 @@
 defmodule CadProductsPhoenixWeb.Router do
   use CadProductsPhoenixWeb, :router
+  use Sentry.PlugCapture
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Sentry.PlugContext
   end
 
   pipeline :exq do
