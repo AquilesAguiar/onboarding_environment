@@ -57,10 +57,24 @@ config :sentry,
 
 config :cad_products_phoenix, CadProductsPhoenix.Tracerer.Tracer,
   service: :cad_products_phoenix,
-  adapter: SpandexDatadog.Adapter
+  adapter: SpandexDatadog.Adapter,
+  disabled?: false,
+  env: "dev"
+
+config :cad_products_phoenix, SpandexDatadog.ApiServer,
+  host: "http://127.0.0.1",
+  port: 8126,
+  batchsize: 10,
+  sync_trasholder: 100,
+  http: HTTPoison
 
 config :spandex, :decorators, tracer: CadProductsPhoenix.Tracerer.Tracer
 config :spandex_phoenix, tracer: CadProductsPhoenix.Tracerer.Tracer
+
+config :spandex_ecto, SpandexEcto.MongoEctoLogger,
+  service: String.to_atom("skyhub/ecto"),
+  tracer: CadProductsPhoenix.Tracerer.Tracer
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
